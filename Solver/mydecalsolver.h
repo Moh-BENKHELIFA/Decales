@@ -46,7 +46,7 @@ protected:
     int gamut_cosntr_ID = -1;
     int min_dist_cosntr_ID = -1;
     int max_dist_cosntr_ID = -1;
-    int alignment_constr_ID = -1;
+    int vertical_line_alignment_constr_ID = -1;
 
 
 };

@@ -326,4 +326,7 @@ bool DecaleScalarField2D::hasToUpdateBuffersSize() {
     return needUpdateBuffersSize;
 }
 
+void DecaleScalarField2D::addVerticalAlignment(DecaleScalarField2D *decale){
+
+}
 

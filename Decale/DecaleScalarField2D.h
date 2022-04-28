@@ -114,6 +114,9 @@ public:
     void setScaley(double value);
     void setZIndex(int value);
 
+    void addVerticalAlignment(DecaleScalarField2D *decale);
+
+
 protected:
 
     int id;

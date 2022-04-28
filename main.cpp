@@ -146,7 +146,7 @@ void buildFields (){
     fields.push_back(new DecaleSquareField2D(360., 290., decaleSize3, 2, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/Spotify.png", 2));
 
-    fields[2]->scale(1,decaleImages[2]->getRatioHW()*1);
+   // fields[2]->scale(1,decaleImages[2]->getRatioHW()*1);
 
 
     fields.push_back(new DecaleRoundCornerSquareField2D(290., 650., decaleSize1, M_PI/6, 3, 0, n));
@@ -253,6 +253,8 @@ int main(int argc, char** argv)
 //    myWidget.update();
 
     myWidget.show();
+
+
 
     return app.exec();
 }
