@@ -200,7 +200,6 @@ void MyDecalSolver::internal_preupdate_constraintrelationships(size_t nRelshsps,
 
 
 void MyDecalSolver::internal_preupdate_assignnpoints(){
-    std::cout<<"internal_preupdate points"<<std::endl;
     nPoints = decales.size();
 }
 
@@ -212,7 +211,6 @@ void MyDecalSolver::internal_preupdate_mapping(std::vector<pse_ppoint_id_t> ppid
 }
 
 void MyDecalSolver::internal_preupdate_setHandlers(){
-    std::cout<< "ON EST ICI----------------------------------------------------------------------"<<std::endl;
     coords_data.as.global.accessors.get = getAttribs;
     coords_data.as.global.accessors.set = setAttribs;
 }
@@ -274,55 +272,11 @@ pse_res_t MyDecalSolver::setAttribs(void *ctxt,
             const pse_real_t* in = static_cast<const pse_real_t*>(attrib_values);
             assert(as_type == PSE_TYPE_REAL);
             for(i = 0; i < count; ++i) {
-               // std::cout<<"COUNT = "<<count<<std::endl;
-                //std::cout<<"decalMap size: "<<mydecalsmap.size()<<std::endl;
 
                 const pse_ppoint_id_t ppid = values_idx[i];
-//                std::cout<<"i: "<< i <<"; IN POS: "<<in[i*2]<<std::endl;
-                if(ppid==4 && mydecalsmap[ppid]->getPosx() != in[i*2+0]){
-                    std::cout<<"XPOS:     " << mydecalsmap[ppid]->getPosx() <<std::endl;
-                    std::cout<<"NEW XPOS: " << in[i*2+0] <<std::endl;
-                }
-
-                if(ppid==4 && mydecalsmap[ppid]->getPosy() != in[i*2+1]){
-                    std::cout<<"YPOS:     " << mydecalsmap[ppid]->getPosy() <<std::endl;
-                    std::cout<<"NEW YPOS: " << in[i*2+1] <<std::endl;
-                }
-
-
-
-
-                if( mydecalsmap[ppid]->getPosx() != in[i*2+0]){
-//                    std::cout<<"i: " << i <<std::endl;
-//                                    std::cout<<"ppid: " << ppid <<std::endl;
-//                                    std::cout<<"values_idx: " << ppid <<std::endl;
-//                                    std::cout<<"DECALE ID: " << mydecalsmap[ppid]->getId() <<std::endl;
-
-                }
 
                 mydecalsmap[ppid]->setPosx(in[i*2+0]);//qreal
                 mydecalsmap[ppid]->setPosy(in[i*2+1]);
-//                std::cout<<"DECALE ID: " << mydecalsmap[ppid]->getId() <<std::endl;
-//                std::cout<<"DECALE2 ID: " << mydecalsmap[values_idx[i+1]]->getId() <<std::endl;
-
-                //std::cout<<"DECALE "<<i<<" : "<<mydecalsmap[ppid]->getId()<<std::endl;
-
-//                std::cout<<"i: " << i <<std::endl;
-//                std::cout<<"ppid: " << ppid <<std::endl;
-//                std::cout<<"values_idx: " << ppid <<std::endl;
-//                std::cout<<"DECALE ID: " << mydecalsmap[ppid]->getId() <<std::endl;
-//                std::cout<<"------------------------------------------------------" <<std::endl;
-
-//                mydecalsmap[1]->setPosx(in[0]);
-//                mydecalsmap[2]->setPosy(in[2]);
-
-                //    if(ppid==1){
-//                        std::cout<<"decalMap size: "<<mydecalsmap.size()<<std::endl;
-//                        std::cout<<"END" <<std::endl;
-
-                  //  }
-                   // std::cout<<"DECALE : "<<mydecalsmap[values_idx[1]]->getId()<<std::endl;
-
             }
         } break;
         default: assert(false);
