@@ -195,7 +195,8 @@ bool QWidgetMyDecale::event(QEvent *event){
         //Touch add and release
         for(int i = 0; i<t->pointCount(); i++){
             auto point = t->points().at(i);
-            removeDecale(getDecalID(point.position()));
+           // removeDecale(getDecalID(point.position()));
+            //TODO RESET THE REMOVE DECALE
             needUpdate = true;
         }
 

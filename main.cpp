@@ -159,6 +159,24 @@ void buildFields (){
     fields.push_back(new DecaleSquareField2D (330.,140.,decaleSize3, 4, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/youtube", 4));
 
+//    fields.push_back(new DecaleSquareField2D (630.,140.,decaleSize3, 5, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 5));
+
+//    fields.push_back(new DecaleSquareField2D (130.,440.,decaleSize3, 6, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 6));
+
+//    fields.push_back(new DecaleSquareField2D (530.,140.,decaleSize3, 7, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 7));
+
+//    fields.push_back(new DecaleSquareField2D (730.,640.,decaleSize3, 8, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 8));
+
+//    fields.push_back(new DecaleSquareField2D (540.,740.,decaleSize3, 9, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 9));
+
+//    fields.push_back(new DecaleSquareField2D (430.,240.,decaleSize3, 10, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 10));
+
 //    fields.push_back(new DecaleDiskField2D (410.,140.,decaleSize3, n));
 //    decaleImages.push_back(new ColorImage ("../Images/round-google.png"));
 

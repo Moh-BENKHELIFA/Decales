@@ -47,6 +47,11 @@ protected:
     int min_dist_cosntr_ID = -1;
     int max_dist_cosntr_ID = -1;
     int vertical_line_alignment_constr_ID = -1;
+    int horizontal_line_alignment_constr_ID = -1;
+    int vertical_alignment_constr_ID = -1;
+    int horizontal_alignment_constr_ID = -1;
+    int fixed_position_constr_ID = -1;
+
 
 
 };
