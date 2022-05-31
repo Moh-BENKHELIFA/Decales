@@ -25,7 +25,8 @@ pse_res_t Constraints::gamut_constratint(const pse_eval_ctxt_t *, const pse_eval
 
     size_t height = gamut->getIHeight();
     size_t width  = gamut->getIWidth();
-   // std::cout<<"size of coords:"<<sizeof(eval_coords->coords)<<std::endl;
+//    std::cout<<"size of coords:"<<sizeof(eval_coords->coords)<<std::endl;
+//    std::cout<<"POINTS COUNT:::: "<<data->ppoints_count<<std::endl;
 
 //    for(int i=0; i<sizeof(eval_coords->coords);i++){
 //        std::cout<<"--------"<<i<<"--------"<<std::endl;
@@ -223,14 +224,27 @@ pse_res_t Constraints::min_dist_constratint(const pse_eval_ctxt_t *eval_ctxt,
         double r1 = MyDecalSolver::mydecalsmap.at(it1->first)->getSize();
         double r2 = MyDecalSolver::mydecalsmap.at(it2->first)->getSize();
 
-        costs[i] = costFactor * std::min(0.0, dist-r1-r2);
+
+        double distance =  dist-r1-r2;
+        if(distance <= 1 && distance >=0)
+                distance = -1;
+        costs[i] = costFactor * std::min(00.0, distance);
+      //  costs[i] =0;
 
 //        if(costs[i]!= 0)
 //            std::cout<<"COSTS: "<<costs[i]<<std::endl;
 
-        if((id1==4 or id2 ==4) and costs[i] != 0){
-            std::cout<<":::::: THE MIN"<<std::endl;
+        if(id1==1 && id2==3 ){
+//            std::cout<<"id2: " <<id2<<std::endl;
+//            std::cout<<"DISTANCE: " <<dist-r1-r2<<std::endl;
+//            std::cout<<"DISTANCE2: " <<distance<<std::endl;
+//            std::cout<<"COSTS: "<<costs[i]<<std::endl;
         }
+
+//        if((id1==4 or id2 ==4) and costs[i] != 0){
+//           // std::cout<<":::::: THE MIN"<<std::endl;
+//        }
+
 
     }
 
@@ -340,7 +354,7 @@ pse_res_t Constraints::max_dist_constratint(const pse_eval_ctxt_t *eval_ctxt,
 
 //        if( id1 == 0 and id2 == 2){
 //            costs[i] = f;
-//        }else
+//        }ELSE
             costs[i] = 0;
 
         costs[i] *= costFactor;
@@ -543,106 +557,106 @@ pse_res_t Constraints::max_dist_constratint(const pse_eval_ctxt_t *eval_ctxt,
 //}
 
 //PerRelation
-pse_res_t Constraints::vertical_alignment_constraint(const pse_eval_ctxt_t *eval_ctxt,
-                                            const pse_eval_coordinates_t *eval_coords,
-                                            pse_eval_relshps_t *eval_relshps,
-                                            pse_real_t *costs){
+//pse_res_t Constraints::vertical_alignment_constraint(const pse_eval_ctxt_t *eval_ctxt,
+//                                            const pse_eval_coordinates_t *eval_coords,
+//                                            pse_eval_relshps_t *eval_relshps,
+//                                            pse_real_t *costs){
 
-    size_t i;
-    (void)eval_ctxt;
+//    size_t i;
+//    (void)eval_ctxt;
 
-//    const struct pse_eval_relshp_data_t* data = eval_relshps->data[0];
-
-
-    for(i = 0; i < eval_relshps->count; ++i) {
-        const struct pse_eval_relshp_data_t* data = eval_relshps->data[i];
-        assert(data->ppoints_count == 2);
-
-        costs[i] = 0;
-
-        //ppidx1 is the aligned decale reference
-        const pse_ppoint_id_t ppidx1 = data->ppoints[0];
-        const pse_ppoint_id_t ppidx2 = data->ppoints[1];
-
-        const pse_real_t x1 = eval_coords->coords[ppidx1*2+0];
-        const pse_real_t x2 = eval_coords->coords[ppidx2*2+0];
-
-        double dist = std::sqrt(std::pow(x2-x1, 2));;//L2 dist;
-
-        std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it1;
-        std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it2;
-        it1 = MyDecalSolver::mydecalsmap.find(ppidx1);
-        it2 = MyDecalSolver::mydecalsmap.find(ppidx2);
-
-        int id1 = it1->first;
-        int id2 = it2->first;
-
-        double maxDist = 00;  //float alignment value
-        double f =  std::max(0.0, dist - maxDist);
-
-//        if(id1==2 and id2 == 3){
-//           costs[i] = f;
-//        }else if(id1==1 and id2 == 2){
-//           costs[i] = f;
-//        }else
-           costs[i] = 0;
-
-        costs[i] *= costFactor;
-       }
+////    const struct pse_eval_relshp_data_t* data = eval_relshps->data[0];
 
 
-       return RES_OK;
-}
+//    for(i = 0; i < eval_relshps->count; ++i) {
+//        const struct pse_eval_relshp_data_t* data = eval_relshps->data[i];
+//        assert(data->ppoints_count == 2);
+
+//        costs[i] = 0;
+
+//        //ppidx1 is the aligned decale reference
+//        const pse_ppoint_id_t ppidx1 = data->ppoints[0];
+//        const pse_ppoint_id_t ppidx2 = data->ppoints[1];
+
+//        const pse_real_t x1 = eval_coords->coords[ppidx1*2+0];
+//        const pse_real_t x2 = eval_coords->coords[ppidx2*2+0];
+
+//        double dist = std::sqrt(std::pow(x2-x1, 2));;//L2 dist;
+
+//        std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it1;
+//        std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it2;
+//        it1 = MyDecalSolver::mydecalsmap.find(ppidx1);
+//        it2 = MyDecalSolver::mydecalsmap.find(ppidx2);
+
+//        int id1 = it1->first;
+//        int id2 = it2->first;
+
+//        double maxDist = 00;  //float alignment value
+//        double f =  std::max(0.0, dist - maxDist);
+
+////        if(id1==2 and id2 == 3){
+////           costs[i] = f;
+////        }else if(id1==1 and id2 == 2){
+////           costs[i] = f;
+////        }else
+//           costs[i] = 0;
+
+//        costs[i] *= costFactor;
+//       }
 
 
-pse_res_t Constraints::horizontal_alignment_constraint(const pse_eval_ctxt_t *eval_ctxt,
-                                            const pse_eval_coordinates_t *eval_coords,
-                                            pse_eval_relshps_t *eval_relshps,
-                                            pse_real_t *costs){
-
-    size_t i;
-    (void)eval_ctxt;
-
-//    const struct pse_eval_relshp_data_t* data = eval_relshps->data[0];
+//       return RES_OK;
+//}
 
 
-    for(i = 0; i < eval_relshps->count; ++i) {
-        const struct pse_eval_relshp_data_t* data = eval_relshps->data[i];
-        assert(data->ppoints_count == 2);
+//pse_res_t Constraints::horizontal_alignment_constraint(const pse_eval_ctxt_t *eval_ctxt,
+//                                            const pse_eval_coordinates_t *eval_coords,
+//                                            pse_eval_relshps_t *eval_relshps,
+//                                            pse_real_t *costs){
 
-        costs[i] = 0;
+//    size_t i;
+//    (void)eval_ctxt;
 
-        //ppidx1 is the aligned decale reference
-        const pse_ppoint_id_t ppidx1 = data->ppoints[0];
-        const pse_ppoint_id_t ppidx2 = data->ppoints[1];
-
-        const pse_real_t y1 = eval_coords->coords[ppidx1*2+1];
-        const pse_real_t y2 = eval_coords->coords[ppidx2*2+1];
-
-        double dist = std::sqrt(std::pow(y2-y1, 2));;//L2 dist;
-
-        std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it1;
-        std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it2;
-        it1 = MyDecalSolver::mydecalsmap.find(ppidx1);
-        it2 = MyDecalSolver::mydecalsmap.find(ppidx2);
-
-        int id1 = it1->first;
-        int id2 = it2->first;
-
-        double maxDist = 00;  //float alignment value
-        double f =  std::max(0.0, dist - maxDist);
-
-        if(id1==1 and id2 == 3){
-           costs[i] = f;
-        }else
-           costs[i] = 0;
-
-        costs[i] *= costFactor;
-       }
+////    const struct pse_eval_relshp_data_t* data = eval_relshps->data[0];
 
 
-       return RES_OK;
-}
+//    for(i = 0; i < eval_relshps->count; ++i) {
+//        const struct pse_eval_relshp_data_t* data = eval_relshps->data[i];
+//        assert(data->ppoints_count == 2);
+
+//        costs[i] = 0;
+
+//        //ppidx1 is the aligned decale reference
+//        const pse_ppoint_id_t ppidx1 = data->ppoints[0];
+//        const pse_ppoint_id_t ppidx2 = data->ppoints[1];
+
+//        const pse_real_t y1 = eval_coords->coords[ppidx1*2+1];
+//        const pse_real_t y2 = eval_coords->coords[ppidx2*2+1];
+
+//        double dist = std::sqrt(std::pow(y2-y1, 2));;//L2 dist;
+
+//        std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it1;
+//        std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it2;
+//        it1 = MyDecalSolver::mydecalsmap.find(ppidx1);
+//        it2 = MyDecalSolver::mydecalsmap.find(ppidx2);
+
+//        int id1 = it1->first;
+//        int id2 = it2->first;
+
+//        double maxDist = 00;  //float alignment value
+//        double f =  std::max(0.0, dist - maxDist);
+
+////        if(id1==1 and id2 == 3){
+////           costs[i] = f;
+////        }else
+//           costs[i] = 0;
+
+//        costs[i] *= costFactor;
+//       }
+
+
+//       return RES_OK;
+//}
 
 
 pse_res_t Constraints::vertical_line_alignment_constraint(const pse_eval_ctxt_t *eval_ctxt,
@@ -708,19 +722,27 @@ pse_res_t Constraints::horizontal_line_alignment_constraint(const pse_eval_ctxt_
 
     const struct pse_eval_relshp_data_t* data = eval_relshps->data[0];
 
+//    std::cout<<"POINTS COUNT:::: <<"<<data->ppoints_count<<std::endl;
 
     for(i = 0; i < data->ppoints_count; ++i){
         assert(eval_relshps->count == 1);
+
 
         costs[i] = 0;
 
         const pse_ppoint_id_t ppidx = data->ppoints[i];
 
+
+
         const pse_real_t y = eval_coords->coords[i*2+1];
 
-        int y_line= 500;
+        //Virtual line alignment
+//      int y_line= 500;
 
-        double dist = std::sqrt(std::pow(y-y_line, 2));;//L2 dist;
+        //Align to a decale
+        int y_line = eval_coords->coords[3*2+1];
+
+        double dist = std::sqrt(std::pow(y-y_line, 2))/2;;//L2 dist;
 
         std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it1;
         it1 = MyDecalSolver::mydecalsmap.find(ppidx);
@@ -730,9 +752,9 @@ pse_res_t Constraints::horizontal_line_alignment_constraint(const pse_eval_ctxt_
         double maxDist = 00;
         double f =  std::max(0.0, dist - maxDist);
 
-//        if(id1==0){
-//            costs[i] = f;
-//        }else
+        if(id1==0){
+            costs[i] = f;
+        }else
             costs[i] = 0;
 
         costs[i] *= costFactor;
@@ -779,15 +801,14 @@ pse_res_t Constraints::fixed_position_constraint(const pse_eval_ctxt_t *eval_ctx
         double maxDist = 00;
         double f =  std::max(0.0, dist - maxDist);
 
-        if(id1==0){
-            costs[i] = f;
-        }else
+//        if(id1==0){
+//            costs[i] = f;
+//        }else
             costs[i] = 0;
 
         costs[i] *= costFactor;
 
-
-       }
+     }
 
 
        return RES_OK;

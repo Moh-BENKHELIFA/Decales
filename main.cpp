@@ -159,11 +159,11 @@ void buildFields (){
     fields.push_back(new DecaleSquareField2D (330.,140.,decaleSize3, 4, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/youtube", 4));
 
-//    fields.push_back(new DecaleSquareField2D (630.,140.,decaleSize3, 5, 0, n));
-//    decaleImages.push_back(new ColorImage ("../Images/youtube", 5));
+    fields.push_back(new DecaleSquareField2D (630.,140.,decaleSize3, 5, 0, n));
+    decaleImages.push_back(new ColorImage ("../Images/youtube", 5));
 
-//    fields.push_back(new DecaleSquareField2D (130.,440.,decaleSize3, 6, 0, n));
-//    decaleImages.push_back(new ColorImage ("../Images/youtube", 6));
+    fields.push_back(new DecaleSquareField2D (130.,440.,decaleSize3, 6, 0, n));
+    decaleImages.push_back(new ColorImage ("../Images/youtube", 6));
 
 //    fields.push_back(new DecaleSquareField2D (530.,140.,decaleSize3, 7, 0, n));
 //    decaleImages.push_back(new ColorImage ("../Images/youtube", 7));
