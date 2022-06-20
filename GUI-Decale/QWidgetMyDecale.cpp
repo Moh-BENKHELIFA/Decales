@@ -61,6 +61,7 @@ int QWidgetMyDecale::getClosestDecalID(QPointF pointpos){
         refposy = decales[0]->getPosy();
         indexSelectedDecale = 0;
 
+
         double dist = (refx-refposx)*(refx-refposx)+(refy-refposy)*(refy-refposy);
         double min = dist;
         for (int i=1; i<decales.size(); i++) {
@@ -83,6 +84,8 @@ int QWidgetMyDecale::getDecalID(QPointF mousepos)
 
     refx = mousepos.x();
     refy = mousepos.y();
+
+
 
     for(size_t i = 0; i<decales.size(); i++){
         //std::cout<<"decals: "<<decales.size()<<" "<<i<<std::endl;

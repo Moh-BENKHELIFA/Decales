@@ -19,6 +19,7 @@ public:
 
     DecaleScalarField2D();
     DecaleScalarField2D(double posx, double posy, double size, unsigned int id, int z_index, unsigned int n);
+    DecaleScalarField2D(double posx, double posy, double sizex, double sizey, unsigned int id, int z_index, unsigned int n);
 
     double eval (const double x, const double y);
 

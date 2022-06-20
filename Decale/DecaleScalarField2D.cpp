@@ -24,6 +24,8 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double size,u
     this->u.set(1.,0.);
     this->v.set(0.,1.);
 
+//    std::cout<<"RADIUS "<<id<<" VALUE: "<<radius<<std::endl;
+
     dwidth=2.*radius;
     dheight=2.*radius;
 
@@ -35,6 +37,43 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double size,u
 
     cornerx=(int)(posx-radius);
     cornery=(int)(posy-radius);
+
+    widthBoundaryUV=0.05;
+
+    scalex=1.;
+    scaley=1.;
+
+    hasRotated = false;
+    needUpdateBuffersSize = false;
+}
+
+DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double sizex, double sizey, unsigned int id, int z_index, unsigned int n)
+    : Field2D (sizex, sizey, n) {
+
+    std::cout<<"SECOND CONSTRUCTOR"<<std::endl;
+
+    this->id=id;
+    this->z_index=z_index;
+
+    this->posx=posx;
+    this->posy=posy;
+
+    this->u.set(1.,0.);
+    this->v.set(0.,1.);
+
+//    std::cout<<"RADIUS "<<id<<" VALUE: "<<radius<<std::endl;
+
+    dwidth=2.*radiusx;
+    dheight=2.*radiusy;
+
+    noRotateDWidthWithScale=dwidth;
+    noRotateDHeightWithScale=dheight;
+
+    iwidth=(unsigned int)dwidth;
+    iheight=(unsigned int) dheight;
+
+    cornerx=(int)(posx-radiusx);
+    cornery=(int)(posy-radiusy);
 
     widthBoundaryUV=0.05;
 
@@ -308,7 +347,11 @@ void DecaleScalarField2D::scale(const double scalex, const double scaley) {
     // The field and UV buffer size need to be updates and buffers need to be re-computed
     ***********************************/
     needUpdateBuffersSize = true;
+
+    std::cout<<"Not the good scale method called... *Insert PacMan defeat sound*"<<std::endl;
+
 }
+
 void DecaleScalarField2D::updateBuffersSize() {
 
     for (int i=0; i<discreteFields.size();i++){

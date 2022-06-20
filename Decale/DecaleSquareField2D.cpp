@@ -4,6 +4,7 @@
 
 #include "DecaleSquareField2D.h"
 #include <math.h>
+#include <iostream>
 
 
 DecaleSquareField2D::DecaleSquareField2D(double posx, double posy, double radius,unsigned int id, int z_index, unsigned int n)
@@ -17,6 +18,10 @@ double DecaleSquareField2D::variableRadius (double x, double y) {
     double up = u*p*scaley;
     double vp = v*p*scalex;
 
-    if (fabs(up) >= fabs(vp)) return radius*scalex*p.norm()/fabs(p*u);
+
+
+
+    if (fabs(up) >= fabs(vp))
+        return radius*scalex*p.norm()/fabs(p*u);
     return radius*scaley*p.norm()/fabs(p*v);
 }

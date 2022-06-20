@@ -4,18 +4,51 @@
 
 #include "Field2D.h"
 #include <math.h>
+#include "iostream"
+
 
 Field2D::Field2D (): size (1.), n(2), iso(0.5) {
 
     invAtIso = invFallOff(iso);
-    radius = size / invAtIso;
+//    radius = size / invAtIso;
+    radiusx = sizex / invAtIso;
+    radiusy = sizey / invAtIso;
 }
 
 Field2D::Field2D (double size, unsigned int n)
-        : size(size), n(n), iso(0.5) {
+        : size(size), n(n), iso(0.5), sizex(size), sizey(size) {
 
     invAtIso = invFallOff(iso);
-    radius = size / invAtIso;
+    std::cout<<"Size: "<<size<<std::endl;
+    std::cout<<"invAtIso: "<<invAtIso<<std::endl;
+    std::cout<<"radius: "<<size / invAtIso<<std::endl;
+    std::cout<<"------------------------: "<<std::endl;
+
+//    radius = size / invAtIso;
+    radiusx = sizex / invAtIso;
+    radiusy = sizey / invAtIso;
+}
+
+Field2D::Field2D (double sizex, double sizey, unsigned int n)
+        : sizex(sizex), sizey(sizey), n(n), iso(0.5) {
+
+    invAtIso = invFallOff(iso);
+//    std::cout<<"Size: "<<size<<std::endl;
+//    std::cout<<"invAtIso: "<<invAtIso<<std::endl;
+//    std::cout<<"radius: "<<size / invAtIso<<std::endl;
+//    std::cout<<"------------------------: "<<std::endl;
+
+    //TODO
+//    size = 30; //LE SOUCI EST ICI IL FAUT REDEFINIR TOUT LE RESTE DU CODE ET AFFICHAGE PAR RAPPORT A SIZEX et SIZEY
+//    radius = sizex/invAtIso;
+//    radius = size/invAtIso;
+
+    radiusx = sizex / invAtIso;
+    radiusy = sizey / invAtIso;
+
+    std::cout<<"radius X: "<<radiusx<<std::endl;
+    std::cout<<"radius Y: "<<radiusy<<std::endl;
+    std::cout<<"radius  : "<<radius<<std::endl;
 }
 
 
@@ -43,8 +76,10 @@ void Field2D::setSize(double value)
 
 double Field2D::getSize (){
 
-    return size;
+    return sizex;
 }
+
+//double Field2d:
 
 double Field2D::getN () {
 
