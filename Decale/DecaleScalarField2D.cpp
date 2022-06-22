@@ -27,12 +27,6 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double size,u
     dwidth=2.*radius;
     dheight=2.*radius;
 
-//    if(id==0){
-
-//        dwidth=2.*(200 / invAtIso);
-//        dheight=2.*(100/ invAtIso);
-//    }
-
     noRotateDWidthWithScale=dwidth;
     noRotateDHeightWithScale=dheight;
 
@@ -50,6 +44,7 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double size,u
     hasRotated = false;
     needUpdateBuffersSize = false;
 }
+
 
 double DecaleScalarField2D::dist (double x, double y) {
 

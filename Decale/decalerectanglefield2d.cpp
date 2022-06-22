@@ -1,14 +1,15 @@
 #include "DecaleRectangleField2d.h"
 #include <math.h>
+#include "iostream"
 
 
 
+DecaleRectangleField2D::DecaleRectangleField2D(double posx, double posy, double sizeX, double sizeY, unsigned int id, int z_index, unsigned int n)
+    : DecaleScalarField2D(posx, posy, sizeX<sizeY?sizeX:sizeY, id, z_index, n) {
 
-DecaleRectangleField2D::DecaleRectangleField2D(double posx, double posy, double radius,unsigned int id, int z_index, unsigned int n)
-    : DecaleScalarField2D(posx, posy, radius, id, z_index, n) {
 
-    int width = 200;
-    int height = 100;
+    double width = sizeX;
+    double height = sizeY;
 
     setSizeX(width);
     setSizeY(height);
@@ -16,17 +17,17 @@ DecaleRectangleField2D::DecaleRectangleField2D(double posx, double posy, double 
     double newScalex = scalex;
     double newScaley = scaley;
 
-    if(width > height)
+    if(width > height){
         newScalex = width/height;
-    else
+    }else{
         newScaley = height/width;
-
+    }
 
 //    scaley = height/width;
 
     scaleInit(newScalex, newScaley);
 
-    scale(0.5, 0.5);
+//    scale(0.5, 0.5);
 
 }
 

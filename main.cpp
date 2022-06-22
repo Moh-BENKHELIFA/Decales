@@ -134,14 +134,17 @@ void buildFields (){
     // Store them in a vector of Decale fields and a vector of corresponding (by index) of Decale images
     ***********************************/
 //    fields.push_back(new DecaleSquareField2D(700., 270., decaleSize0, 0, 0, n));
-    fields.push_back(new DecaleRectangleField2D(700., 270., decaleSize0, 0, 0, n));
+
+    double rectW = 150;
+    double rectH = 200;
+    fields.push_back(new DecaleRectangleField2D(700., 270., rectW, rectH, 0, 0, n));
 //    decaleImages.push_back(new ColorImage ("../Images/windows.jpg", 0));
-    decaleImages.push_back(new ColorImage (200,100, 0));
+    decaleImages.push_back(new ColorImage (rectW,rectH, 0));
 
     //fields[0]->rotate(M_PI/8.);
     //fields[0]->scale(1, decaleImages[0]->getRatioHW()*1);
 
-    fields.push_back(new DecaleSquareField2D(333., 510., decaleSize1, 1, 0, n));
+    fields.push_back(new DecaleSquareField2D(333., 510., decaleSize0, 1, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/IRIT.png", 1));
 
 //    fields[1]->scale(1.88,decaleImages[1]->getRatioHW()*1.88);  //update the scale

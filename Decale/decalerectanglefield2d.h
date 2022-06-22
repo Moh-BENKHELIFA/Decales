@@ -7,7 +7,7 @@
 class DecaleRectangleField2D : public DecaleScalarField2D{
 
 public:
-    DecaleRectangleField2D(double posx, double posy, double radius,unsigned int id, int z_index, unsigned int n);
+    DecaleRectangleField2D(double posx, double posy, double sizeX, double sizeY,unsigned int id, int z_index, unsigned int n);
 
     double variableRadius (double x, double y);
     void scaleInit(const double scalex, const double scaley);
