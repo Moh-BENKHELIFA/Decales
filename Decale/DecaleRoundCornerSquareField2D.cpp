@@ -39,8 +39,8 @@ double DecaleRoundCornerSquareField2D::variableRadius (double x, double y) {
         return (-b + sqrt(delta)) / (2.*a);
     }
 
-    if (fabs(up*scaley) >= fabs(vp*scalex)) return radius*scalex*p.norm()/fabs(up);
-    return radius*scaley*p.norm()/fabs(vp);
+    if (fabs(up*scaley) >= fabs(vp*scalex)) return radiusx*scalex*p.norm()/fabs(up);
+    return radiusy*scaley*p.norm()/fabs(vp);
 }
 
 void DecaleRoundCornerSquareField2D::scale(const double scalex, const double scaley) {

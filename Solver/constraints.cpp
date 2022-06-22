@@ -80,7 +80,7 @@ pse_res_t Constraints::gamut_constratint(const pse_eval_ctxt_t *, const pse_eval
             signedDistance = std::max(
                         0.0,
                         getGamutValue(m, n, x, y ) +
-                        MyDecalSolver::mydecalsmap.at(it->first)->getSize() // radius
+                        MyDecalSolver::mydecalsmap.at(it->first)->getSizey() // radius
                                       );
             costs[i] = ( signedDistance > 0. ) ? computeCost( signedDistance ) : 0.0;
             if((ppidx ==4) and costs[i] != 0){
@@ -213,6 +213,8 @@ pse_res_t Constraints::min_dist_constratint(const pse_eval_ctxt_t *eval_ctxt,
 
         double dist = std::max(std::abs(x2-x1), std::abs(y2-y1));
 
+//        double dist = std::sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+
         std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it1;
         std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it2;
         it1 = MyDecalSolver::mydecalsmap.find(ppidx1);
@@ -221,15 +223,28 @@ pse_res_t Constraints::min_dist_constratint(const pse_eval_ctxt_t *eval_ctxt,
         int id1 = it1->first;
         int id2 = it2->first;
 
-        double r1 = MyDecalSolver::mydecalsmap.at(it1->first)->getSize();
-        double r2 = MyDecalSolver::mydecalsmap.at(it2->first)->getSize();
+        double rx1 = MyDecalSolver::mydecalsmap.at(it1->first)->getSizex();
+        double rx2 = MyDecalSolver::mydecalsmap.at(it2->first)->getSizex();
+        double ry1 = MyDecalSolver::mydecalsmap.at(it1->first)->getSizey();
+        double ry2 = MyDecalSolver::mydecalsmap.at(it2->first)->getSizey();
+
+        double distancex = abs(x2-x1)-rx1-rx2;
+        double distancey = abs(y2-y1)-ry1-ry2;
+
+        double distance = std::max(distancex, distancey);
 
 
-        double distance =  dist-r1-r2;
+//        if(distancex <= 1 && distancex >=0)
+//                distancex = -1;
+
+//        if(distancey <= 1 && distancey >=0)
+//                distancey = -1;
+
         if(distance <= 1 && distance >=0)
-                distance = -1;
+                distance= -1;
+
         costs[i] = costFactor * std::min(00.0, distance);
-      //  costs[i] =0;
+//        costs[i] =0;
 
 //        if(costs[i]!= 0)
 //            std::cout<<"COSTS: "<<costs[i]<<std::endl;
@@ -239,6 +254,21 @@ pse_res_t Constraints::min_dist_constratint(const pse_eval_ctxt_t *eval_ctxt,
 //            std::cout<<"DISTANCE: " <<dist-r1-r2<<std::endl;
 //            std::cout<<"DISTANCE2: " <<distance<<std::endl;
 //            std::cout<<"COSTS: "<<costs[i]<<std::endl;
+        }
+
+        if(id1==0 && id2 ==2){
+//            std::cout<<"------Minimum constraint id0------"<<std::endl;
+//            std::cout<<"dist:"<<dist<<std::endl;
+//            std::cout<<"distx: "<<std::abs(x2-x1)<<std::endl;
+//            std::cout<<"disty: "<<std::abs(y2-y1)<<std::endl;
+//            std::cout<<"distance X: "<<distancex<<std::endl;
+//            std::cout<<"distance Y: "<<distancey<<std::endl;
+//            std::cout<<"Size x: "<<rx1<<std::endl;
+//            std::cout<<"Size y: "<<ry1<<std::endl;
+
+
+
+
         }
 
 //        if((id1==4 or id2 ==4) and costs[i] != 0){

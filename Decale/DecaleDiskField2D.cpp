@@ -17,5 +17,5 @@ double DecaleDiskField2D::variableRadius (double x, double y) {
     Vector2D p(x-posx,y-posy);
     double t = atan (scalex/scaley * (v*p)/(u*p));
 
-    return Vector2D(radius*scalex*cos(t), radius*scaley*sin(t)).norm();
+    return Vector2D(radiusx*scalex*cos(t), radiusy*scaley*sin(t)).norm();
 }

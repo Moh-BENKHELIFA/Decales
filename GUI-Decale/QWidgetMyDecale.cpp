@@ -90,10 +90,10 @@ int QWidgetMyDecale::getDecalID(QPointF mousepos)
     for(size_t i = 0; i<decales.size(); i++){
         //std::cout<<"decals: "<<decales.size()<<" "<<i<<std::endl;
         auto d = decales[i];
-        auto dinitx = d->getPosx() - d->getSize();
-        auto dinity = d->getPosy() - d->getSize();
-        auto dfinx  = d->getPosx() + d->getSize();
-        auto dfiny  = d->getPosy() + d->getSize();
+        auto dinitx = d->getPosx() - d->getSizex();
+        auto dinity = d->getPosy() - d->getSizey();
+        auto dfinx  = d->getPosx() + d->getSizex();
+        auto dfiny  = d->getPosy() + d->getSizey();
 
         if((mousepos.x() > dinitx) and (mousepos.y() > dinity) and
            (mousepos.x() < dfinx) and (mousepos.y() < dfiny)){
@@ -134,10 +134,10 @@ std::tuple<int,int> QWidgetMyDecale::getDecalId_ZIndex(QPointF mousepos){
     for(size_t i = 0; i<decales.size(); i++){
         //std::cout<<"decals: "<<decales.size()<<" "<<i<<std::endl;
         auto d = decales[i];
-        auto dinitx = d->getPosx() - d->getSize();
-        auto dinity = d->getPosy() - d->getSize();
-        auto dfinx  = d->getPosx() + d->getSize();
-        auto dfiny  = d->getPosy() + d->getSize();
+        auto dinitx = d->getPosx() - d->getSizex();
+        auto dinity = d->getPosy() - d->getSizey();
+        auto dfinx  = d->getPosx() + d->getSizex();
+        auto dfiny  = d->getPosy() + d->getSizey();
 
         if((mousepos.x() > dinitx) and (mousepos.y() > dinity) and
            (mousepos.x() < dfinx) and (mousepos.y() < dfiny)){

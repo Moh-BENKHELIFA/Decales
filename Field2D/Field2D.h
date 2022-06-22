@@ -40,7 +40,7 @@ public:
     double getIso ();
 
     // Returns the size if the primitive whose boundary is defined by f=Iso
-    double getSize ();
+//    double getSize ();
 
     double getSizex();
     double getSizey();
@@ -60,7 +60,9 @@ protected:
     // The distance field value is normalized so that its value is 0 at the primitive center
     // and 1 at the field variation limit (at the distance "radius" from the center).
     // Outside this field variation limit the falloff function assigns 0
-    double normalizeField (double distanceFieldValue);
+//    double normalizeField (double distanceFieldValue);
+    double normalizeFieldX (double distanceFieldValue);
+    double normalizeFieldY (double distanceFieldValue);
 
     // Computes the final field value : 1 at the primitive center, decreasing up to 0 at the
     // field variation limit (at the distance "radius" from the center). The field is the 0
@@ -75,14 +77,15 @@ protected:
 
     //Size of the primitive boundary (at the Iso-isosurface)
     //Radius for a sphere
-//    double size;
+    double size;
     double sizex;
     double sizey;
 
     //Radius of influence (Field = 0 outside)
-//    double radius;
+    double radius;
     double radiusx;
     double radiusy;
+    double radi;
 
     //inverse of iso by the Field function
     double invAtIso;

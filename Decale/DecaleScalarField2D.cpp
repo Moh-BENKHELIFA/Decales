@@ -26,8 +26,12 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double size,u
 
 //    std::cout<<"RADIUS "<<id<<" VALUE: "<<radius<<std::endl;
 
-    dwidth=2.*radius;
-    dheight=2.*radius;
+    dwidth=2.*radiusx;
+    dheight=2.*radiusy;
+
+//    std::cout<<"square dheight: "<<dheight<<std::endl;
+//    std::cout<<"square radiusy: "<<radiusy<<std::endl;
+//    std::cout<<"square height: "<<sizey<<std::endl;
 
     noRotateDWidthWithScale=dwidth;
     noRotateDHeightWithScale=dheight;
@@ -35,8 +39,8 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double size,u
     iwidth=(unsigned int)dwidth;
     iheight=(unsigned int) dheight;
 
-    cornerx=(int)(posx-radius);
-    cornery=(int)(posy-radius);
+    cornerx=(int)(posx-radiusx);
+    cornery=(int)(posy-radiusy);
 
     widthBoundaryUV=0.05;
 
@@ -65,6 +69,10 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double sizex,
 
     dwidth=2.*radiusx;
     dheight=2.*radiusy;
+//    std::cout<<"rectangle dheight: "<<dheight<<std::endl;
+//    std::cout<<"rectangle radiusy: "<<radiusy<<std::endl;
+//    std::cout<<"rectangle height: "<<sizey<<std::endl;
+
 
     noRotateDWidthWithScale=dwidth;
     noRotateDHeightWithScale=dheight;
@@ -72,13 +80,14 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double sizex,
     iwidth=(unsigned int)dwidth;
     iheight=(unsigned int) dheight;
 
+
     cornerx=(int)(posx-radiusx);
     cornery=(int)(posy-radiusy);
 
     widthBoundaryUV=0.05;
 
-    scalex=1.;
-    scaley=1.;
+    scalex=0.5;
+    scaley=0.5; //TODO PASSER EN 0.5
 
     hasRotated = false;
     needUpdateBuffersSize = false;
@@ -91,6 +100,7 @@ double DecaleScalarField2D::dist (double x, double y) {
 
 double DecaleScalarField2D::normalizedDist (double x, double y) {
 
+
     return dist(x,y)/variableRadius(x,y);
 }
 
@@ -101,6 +111,7 @@ double DecaleScalarField2D::eval(const double x, const double y) {
 }
 
 void DecaleScalarField2D::computeDiscreteField() {
+    std::cout<<"Hello there O"<<std::endl;
 
     discreteField = new double [iwidth*iheight];
 
@@ -112,6 +123,7 @@ void DecaleScalarField2D::computeDiscreteField() {
 }
 
 void DecaleScalarField2D::updateDiscreteField(unsigned int indexField) {
+    std::cout<<"Hello there 1"<<std::endl;
 
     for (int i=0; i<iwidth; i++)
         for (int j=0; j<iheight;j++)
@@ -119,6 +131,8 @@ void DecaleScalarField2D::updateDiscreteField(unsigned int indexField) {
 }
 
 void DecaleScalarField2D::computeDiscreteUVField (unsigned int indexField){
+
+    std::cout<<"Hello there 2"<<std::endl;
 
     discreteUVField = new Vector2D [iwidth*iheight];
     double x,y,valu,valv, valField;
@@ -146,6 +160,7 @@ void DecaleScalarField2D::computeDiscreteUVField (unsigned int indexField){
         }
 }
 void DecaleScalarField2D::updateDiscreteUVField(unsigned int indexField) {
+    std::cout<<"Hello there 3"<<std::endl;
 
     double x,y,valu,valv, valField;
     Vector2D p,s;
@@ -174,6 +189,7 @@ void DecaleScalarField2D::updateDiscreteUVField(unsigned int indexField) {
 
 
 Vector2D DecaleScalarField2D::getUV(unsigned int i, unsigned int j){
+//    std::cout<<"Hello there"<<std::endl;
 
     return discreteUVField[i*iheight+j];
 }

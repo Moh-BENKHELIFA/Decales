@@ -8,6 +8,7 @@
 #include "Decale/DecaleSquareField2D.h"
 #include "Decale/DecaleRoundCornerSquareField2D.h"
 #include "Decale/DecaleRectangleField2D.h"
+#include "Decale/DecaleText.h"
 #include "Deformer2D/Deformer2D.h"
 #include "Deformer2D/Deformer2DMax.h"
 #include "Deformer2D/Deformer2DContact.h"
@@ -129,20 +130,25 @@ void buildFields (){
     double decaleSize3 = 34.;
     double decaleSize4 = 110.;
     double decaleSize5 = 100.;
+    double decaleSize6 = 50;
 
     /***********************************
     // Create each Decale with its eventual rotation and its image
     // Store them in a vector of Decale fields and a vector of corresponding (by index) of Decale images
     ***********************************/
-//    fields.push_back(new DecaleSquareField2D(700., 270., decaleSize3, 0, 0, n));
+//    fields.push_back(new DecaleSquareField2D(700., 270., decaleSize2, 0, 0, 30));
 //    decaleImages.push_back(new ColorImage ("../Images/windows.jpg", 0));
 
 //    fields.push_back(new DecaleRectangleField2D(1000., 270., decaleSize3, decaleSize3, 0, 0, n));
-    fields.push_back(new DecaleRectangleField2D(1000., 270., 500,150, 0, 0, n));
-//    fields.push_back(new DecaleRectangleField2D(1000., 270., 500,150, 0, 0, n));
 
+    double recW=100;//Rectangle decale width
+    double recH=50;//rectangle decale height
+    //    fields.push_back(new DecaleRectangleField2D(1000., 270., 500,150, 0, 0, n));
 
-    decaleImages.push_back(new ColorImage(500,150, 0));
+//    fields.push_back(new DecaleText(1000., 270., decaleSize5, 0, 0,n));
+
+    fields.push_back(new DecaleRectangleField2D(1000., 270., recW,recH, 0, 0, n));
+    decaleImages.push_back(new ColorImage(recW,recH, 0));
 //    decaleImages.push_back(new ColorImage ("../Images/Abstract.png", 0));
 
     //fields[0]->rotate(M_PI/8.);
@@ -164,11 +170,11 @@ void buildFields (){
     decaleImages.push_back(new ColorImage ("../Images/EIT.png", 3));
 
 
-    std::cout<<"decal size: "<<fields[0]->getSize()<<std::endl;
+//    std::cout<<"decal size: "<<fields[0]->getSize()<<std::endl;
 
 
-    fields.push_back(new DecaleSquareField2D (330.,140.,decaleSize3, 4, 0, n));
-    decaleImages.push_back(new ColorImage ("../Images/youtube", 4));
+    fields.push_back(new DecaleSquareField2D (330.,140.,decaleSize6, 4, 0, n));
+    decaleImages.push_back(new ColorImage ("../Images/Spotify", 4));
 
     fields.push_back(new DecaleSquareField2D (630.,140.,decaleSize3, 5, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/youtube", 5));

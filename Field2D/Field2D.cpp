@@ -7,54 +7,57 @@
 #include "iostream"
 
 
-Field2D::Field2D (): size (1.), n(2), iso(0.5) {
+Field2D::Field2D (): /*size (1.),*/ n(2), iso(0.5) {
 
     invAtIso = invFallOff(iso);
 //    radius = size / invAtIso;
-    radiusx = sizex / invAtIso;
-    radiusy = sizey / invAtIso;
+    radiusx = radius;
+    radiusy = radius;
 }
 
 Field2D::Field2D (double size, unsigned int n)
         : size(size), n(n), iso(0.5), sizex(size), sizey(size) {
 
     invAtIso = invFallOff(iso);
-    std::cout<<"Size: "<<size<<std::endl;
-    std::cout<<"invAtIso: "<<invAtIso<<std::endl;
-    std::cout<<"radius: "<<size / invAtIso<<std::endl;
-    std::cout<<"------------------------: "<<std::endl;
-
-//    radius = size / invAtIso;
-    radiusx = sizex / invAtIso;
-    radiusy = sizey / invAtIso;
+    radius = size / invAtIso;
+    radiusx = radius;
+    radiusy = radius;
 }
 
 Field2D::Field2D (double sizex, double sizey, unsigned int n)
         : sizex(sizex), sizey(sizey), n(n), iso(0.5) {
 
     invAtIso = invFallOff(iso);
-//    std::cout<<"Size: "<<size<<std::endl;
-//    std::cout<<"invAtIso: "<<invAtIso<<std::endl;
-//    std::cout<<"radius: "<<size / invAtIso<<std::endl;
-//    std::cout<<"------------------------: "<<std::endl;
 
     //TODO
 //    size = 30; //LE SOUCI EST ICI IL FAUT REDEFINIR TOUT LE RESTE DU CODE ET AFFICHAGE PAR RAPPORT A SIZEX et SIZEY
 //    radius = sizex/invAtIso;
 //    radius = size/invAtIso;
 
+//    size = sizex;
+//    radius = size / invAtIso;
+
     radiusx = sizex / invAtIso;
     radiusy = sizey / invAtIso;
 
+//    radius = 30;
     std::cout<<"radius X: "<<radiusx<<std::endl;
     std::cout<<"radius Y: "<<radiusy<<std::endl;
     std::cout<<"radius  : "<<radius<<std::endl;
 }
 
 
-double Field2D::normalizeField (double distanceFieldValue){
+//double Field2D::normalizeField (double distanceFieldValue){
 
-    return distanceFieldValue / radius;
+//    return distanceFieldValue / radius;
+//}
+
+double Field2D::normalizeFieldX (double distanceFieldValue){
+    return distanceFieldValue / radiusx;
+}
+
+double Field2D::normalizeFieldY (double distanceFieldValue){
+    return distanceFieldValue / radiusy;
 }
 
 double Field2D::fallOff (double normalizedField){
@@ -71,12 +74,20 @@ double Field2D::invFallOff (double valFallOff){
 
 void Field2D::setSize(double value)
 {
-    size = value;
+//    size = value;
 }
 
-double Field2D::getSize (){
+//double Field2D::getSize (){
 
+//    return size;
+//}
+
+double Field2D::getSizex(){
     return sizex;
+}
+
+double Field2D::getSizey(){
+    return sizey;
 }
 
 //double Field2d:

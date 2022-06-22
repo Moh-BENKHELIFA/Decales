@@ -3,6 +3,7 @@
 //
 
 #include "GamutField2D.h"
+#include "iostream"
 
 GamutField2D::GamutField2D () : field(), Field2D() {}
 
@@ -15,7 +16,12 @@ GamutField2D::GamutField2D (Field2D *f, int cornerx, int cornery, unsigned int w
 
 double GamutField2D::eval (const double x, const double y) {
 
-    return fallOff(invAtIso - normalizeField(field->eval(x, y)));
+//    std::cout<<"BONSOIR"<<std::endl;
+
+
+    double val = (normalizeFieldX(field->eval(x,y)) > normalizeFieldY(field->eval(x,y)) ? normalizeFieldX(field->eval(x,y)) : normalizeFieldY(field->eval(x,y)));
+
+    return fallOff(invAtIso - val);
 }
 
 void GamutField2D::computeDiscreteField () {

@@ -81,8 +81,10 @@ ColorImage::ColorImage (const int w, const int h, unsigned int decaleId){
 
 //    label->setFont(font);
 
-
-    label->setFont(QFont ( "Arial", 15));
+    QFont *font = new QFont("SansSerif", 8);//Size 8 = best smallest resolution
+    font->setHintingPreference(QFont::PreferFullHinting);
+    font->setStyleStrategy(QFont::PreferAntialias);
+    label->setFont(*font);
 
 //    QString text = "<font size=20><b>Abstract</b><br></font>"
 //                   "<font size=3>"
@@ -90,12 +92,12 @@ ColorImage::ColorImage (const int w, const int h, unsigned int decaleId){
 //                   "    Je rajoute du texte en plus pour que ça soit plus long et que ça déborde comme il faut pour voir si ça redimensionne les choses ou non."
 //                   "</font>";
 
-    QString text = "<font size=20><b>Abstract</b><br></font>"
-                   "<font size =1px>"
-                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor augue aliquam libero consequat consequat. Nullam luctus tincidunt eros eleifend efficitur. Fusce ultrices laoreet eleifend. Quisque non pharetra orci, et consectetur massa. Praesent iaculis pellentesque iaculis. Nunc ipsum ante, vulputate at mauris eget, commodo aliquet nisi. In bibendum vulputate libero nec interdum. Donec augue orci, pellentesque gravida enim vitae, dapibus eleifend arcu. Vestibulum augue lacus, tincidunt ut dignissim in, malesuada a tortor. Integer vitae nibh sit amet dolor rutrum semper sed ut nulla. Aliquam eu imperdiet turpis. Aenean non lorem ullamcorper, sollicitudin lectus in, vehicula mauris. Donec euismod interdum scelerisque. In sit amet eros scelerisque, accumsan turpis ut, vehicula ipsum. "
-                   "</font>";
-  //  QString text = "Abstract\n"
-    //                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor augue aliquam libero consequat consequat. Nullam luctus tincidunt eros eleifend efficitur. Fusce ultrices laoreet eleifend. Quisque non pharetra orci, et consectetur massa. Praesent iaculis pellentesque iaculis. Nunc ipsum ante, vulputate at mauris eget, commodo aliquet nisi. In bibendum vulputate libero nec interdum. Donec augue orci, pellentesque gravida enim vitae, dapibus eleifend arcu. Vestibulum augue lacus, tincidunt ut dignissim in, malesuada a tortor. Integer vitae nibh sit amet dolor rutrum semper sed ut nulla. Aliquam eu imperdiet turpis. Aenean non lorem ullamcorper, sollicitudin lectus in, vehicula mauris. Donec euismod interdum scelerisque. In sit amet eros scelerisque, accumsan turpis ut, vehicula ipsum. ";
+//    QString text = "<font size=20><b>Abstract</b><br></font>"
+//                   "<font size =1px>"
+//                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor augue aliquam libero consequat consequat. Nullam luctus tincidunt eros eleifend efficitur. Fusce ultrices laoreet eleifend. Quisque non pharetra orci, et consectetur massa. Praesent iaculis pellentesque iaculis. Nunc ipsum ante, vulputate at mauris eget, commodo aliquet nisi. In bibendum vulputate libero nec interdum. Donec augue orci, pellentesque gravida enim vitae, dapibus eleifend arcu. Vestibulum augue lacus, tincidunt ut dignissim in, malesuada a tortor. Integer vitae nibh sit amet dolor rutrum semper sed ut nulla. Aliquam eu imperdiet turpis. Aenean non lorem ullamcorper, sollicitudin lectus in, vehicula mauris. Donec euismod interdum scelerisque. In sit amet eros scelerisque, accumsan turpis ut, vehicula ipsum. "
+//                   "</font>";
+    QString text = "Abstract\n"
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor augue aliquam libero consequat consequat. Nullam luctus tincidunt eros eleifend efficitur. Fusce ultrices laoreet eleifend. Quisque non pharetra orci, et consectetur massa. Praesent iaculis pellentesque iaculis. Nunc ipsum ante, vulputate at mauris eget, commodo aliquet nisi. In bibendum vulputate libero nec interdum. Donec augue orci, pellentesque gravida enim vitae, dapibus eleifend arcu. Vestibulum augue lacus, tincidunt ut dignissim in, malesuada a tortor. Integer vitae nibh sit amet dolor rutrum semper sed ut nulla. Aliquam eu imperdiet turpis. Aenean non lorem ullamcorper, sollicitudin lectus in, vehicula mauris. Donec euismod interdum scelerisque. In sit amet eros scelerisque, accumsan turpis ut, vehicula ipsum. ";
 //    QRect rectLbl = label->rect(); // wrong: contentsRect();
 //    QFont font = label->font();
 //    int size = font.pointSize();
@@ -238,27 +240,46 @@ void ColorImage::addColorImageWithDecaleUV(DecaleScalarField2D *decale, ColorIma
                 xu = (int)(uv.x*imgDecale->getWidth());
                 yu = (int)(uv.y*imgDecale->getHeight());
 //                std::cout<<uv.x<<" "<<uv.y<<"  "<<decale->getSize()<<"  "<<imgDecale->getWidth()<<" "<<imgDecale->getHeight()<<std::endl;
-                Color c = imgDecale->getColor(xu,yu);
-                qc.setRgbF(c.r,c.g,c.b);
-                qimg.setPixelColor((int)decale->getCornerX() + i,(int)decale->getCornerY() + j, qc);
-
-//                if(border ==0){
-//                    for(int k=-1; k>=-borderWidth; k--){
-//                        qimg.setPixelColor((int)decale->getCornerX() + i,(int)decale->getCornerY()+j+k, Qt::red);
-//                    }
-//                    border =1;
-//                }
+                if(xu<imgDecale->getWidth() && yu<imgDecale->getHeight()){
+                    Color c = imgDecale->getColor(xu,yu);
+                    qc.setRgbF(c.r,c.g,c.b);
+                    qimg.setPixelColor((int)decale->getCornerX() + i,(int)decale->getCornerY() + j, qc);
+                }
             }
         }
 
     }
 
+
     if(decale->getId()==0){
 
-//    std::cout<<"IWIDTH: "<<decale->getIWidth()<<std::endl;
-//    std::cout<<"IHEIGHT: "<<decale->getIHeight()<<std::endl;
-//    std::cout<<"DWIDTH: "<<decale->getDWidth()<<std::endl;
-//    std::cout<<"DHEIGHT: "<<decale->getDHeight()<<std::endl;
+//        for (int i=0; i<decale->getIWidth(); i++){
+//            for (int j=0; j<decale->getIHeight(); j++) {
+//                uv=decale->getUV(i,j);
+
+//                if ((uv.x >= 0.) && (uv.y >= 0.) && (uv.x < 2.) && (uv.y < 2.)
+//                    && ((int)decale->getCornerX() + i> 0) && ((int)decale->getCornerY() + j > 0)
+//                    && ((int)decale->getCornerX() + i< width) && ((int)decale->getCornerY() + j < height)) {
+//                    xu = (int)(uv.x*imgDecale->getWidth());
+//                    yu = (int)(uv.y*imgDecale->getHeight());
+////                    std::cout<<"x: "<<i<<" | "<<xu<<" :xu"<<std::endl;
+////                    std::cout<<"y: "<<j<<" | "<<yu<<" :yu"<<std::endl;
+
+//                        Color c = imgDecale->getColor(xu,yu);
+//                        qc.setRgbF(c.r,c.g,c.b);
+//                        qimg.setPixelColor((int)decale->getCornerX() + i,(int)decale->getCornerY() + j, qc);
+//                    }
+//                }
+//            }
+
+//        }
+
+
+
+    std::cout<<"IWIDTH: "<<imgDecale->getWidth()<<std::endl;
+    std::cout<<"IHEIGHT: "<<imgDecale->getHeight()<<std::endl;
+    std::cout<<"DHEIGHT: "<<decale->getIHeight()<<std::endl;
+    std::cout<<"DWIDTH: "<<decale->getIWidth()<<std::endl;
 
 
 //        for (int i=00; i<decale->getIWidth(); i++){
@@ -279,14 +300,14 @@ void ColorImage::addColorImageWithDecaleUV(DecaleScalarField2D *decale, ColorIma
 //                  }
 //              }
 //          }
-    int t = decale->getPosx();
+//    int t = decale->getPosx();
 
-    for (int i=t; i<t+50; i++){
-            qimg.setPixelColor(i,(int)decale->getPosy(), Qt::green);
-    }
+//    for (int i=0; i<decale->getIWidth(); i++){
+//            qimg.setPixelColor(decale->getPosx()+i,(int)decale->getPosy(), Qt::green);
+//    }
 
-//    for (int i=decale->getPosy(); i<decale->getPosy()+decale->getIHeight(); i++){
-//            qimg.setPixelColor(decale->getPosx(),i, Qt::gray);
+//    for (int i=0; i<decale->getIHeight(); i++){
+//            qimg.setPixelColor(decale->getPosx(),(int)decale->getPosy()+i, Qt::gray);
 //    }
 
 
