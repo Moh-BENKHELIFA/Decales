@@ -7,6 +7,7 @@
 #include "Decale/DecaleDiskField2D.h"
 #include "Decale/DecaleSquareField2D.h"
 #include "Decale/DecaleRoundCornerSquareField2D.h"
+#include "Decale/DecaleRectangleField2D.h"
 #include "Deformer2D/Deformer2D.h"
 #include "Deformer2D/Deformer2DMax.h"
 #include "Deformer2D/Deformer2DContact.h"
@@ -26,8 +27,8 @@
 #include "Field2D/imagefield.h"
 
 
-unsigned int wi_width=1024;
-unsigned int wi_height=740;
+unsigned int wi_width=1920;
+unsigned int wi_height=1080;
 
 VectorOfDecaleFields fields;
 VectorOfColorImages decaleImages;
@@ -93,8 +94,7 @@ void buildFields (){
     //Field2D *gamutSDF = new Operator2DMax(gamutComponentFields);
 
     //QString path = "C:/Users/aniyazov/Pictures/interactive_decal_interface/mainWindow_binaryImage";
-    QString path = "C:/Users/mbenkhel/Documents/Internship/dev/Qt/implicit-decales-aziz/Images/gamut_images/test4";
-    std::cout<< "Hello"<<std::endl;
+    QString path = "C:/Users/mbenkhel/Documents/Internship/dev/Qt/implicit-decales-aziz/Images/gamut_images/full_screen";
 
     Field2D *gamutSDF = new ImageField(path);
 
@@ -104,6 +104,7 @@ void buildFields (){
     // the size for the falloff function is the size from the center to isosurface
     ***********************************/
     gamut = new GamutField2D(gamutSDF, 0, 0, wi_width, wi_height, sizeFallOff, n);
+
 
     /***********************************
     // Pre-computation of the gamut field values in a buffer of size wi_width*wi_height
@@ -127,37 +128,65 @@ void buildFields (){
     double decaleSize2 = 90.;
     double decaleSize3 = 34.;
     double decaleSize4 = 110.;
+    double decaleSize5 = 100.;
 
     /***********************************
     // Create each Decale with its eventual rotation and its image
     // Store them in a vector of Decale fields and a vector of corresponding (by index) of Decale images
     ***********************************/
-    fields.push_back(new DecaleSquareField2D(700., 270., decaleSize0, 0, 0, n));
-    decaleImages.push_back(new ColorImage ("../Images/windows.jpg", 0));
-    //fields[0]->rotate(M_PI/8.);
-    //fields[0]->scale(1, decaleImages[0]->getRatioHW()*1);
+//    fields.push_back(new DecaleSquareField2D(700., 270., decaleSize3, 0, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/windows.jpg", 0));
 
-    fields.push_back(new DecaleSquareField2D(333., 510., decaleSize1, 1, 0, n));
+//    fields.push_back(new DecaleRectangleField2D(1000., 270., decaleSize3, decaleSize3, 0, 0, n));
+    fields.push_back(new DecaleRectangleField2D(1000., 270., 500,150, 0, 0, n));
+//    fields.push_back(new DecaleRectangleField2D(1000., 270., 500,150, 0, 0, n));
+
+
+    decaleImages.push_back(new ColorImage(500,150, 0));
+//    decaleImages.push_back(new ColorImage ("../Images/Abstract.png", 0));
+
+    //fields[0]->rotate(M_PI/8.);
+//    fields[0]->scale(1, decaleImages[0]->getRatioHW()*1);
+
+    fields.push_back(new DecaleSquareField2D(333., 510., decaleSize5, 1, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/IRIT.png", 1));
 
 //    fields[1]->scale(1.88,decaleImages[1]->getRatioHW()*1.88);  //update the scale
 
 
-    fields.push_back(new DecaleSquareField2D(360., 290., decaleSize3, 2, 0, n));
+    fields.push_back(new DecaleSquareField2D(360., 290., decaleSize5, 2, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/Spotify.png", 2));
 
-    fields[2]->scale(1,decaleImages[2]->getRatioHW()*1);
+   // fields[2]->scale(1,decaleImages[2]->getRatioHW()*1);
 
 
     fields.push_back(new DecaleRoundCornerSquareField2D(290., 650., decaleSize1, M_PI/6, 3, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/EIT.png", 3));
 
 
-    std::cout<<"decal size: "<<fields[1]->getSize()<<std::endl;
+    std::cout<<"decal size: "<<fields[0]->getSize()<<std::endl;
 
 
     fields.push_back(new DecaleSquareField2D (330.,140.,decaleSize3, 4, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/youtube", 4));
+
+    fields.push_back(new DecaleSquareField2D (630.,140.,decaleSize3, 5, 0, n));
+    decaleImages.push_back(new ColorImage ("../Images/youtube", 5));
+
+    fields.push_back(new DecaleSquareField2D (130.,440.,decaleSize3, 6, 0, n));
+    decaleImages.push_back(new ColorImage ("../Images/youtube", 6));
+
+//    fields.push_back(new DecaleSquareField2D (530.,140.,decaleSize3, 7, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 7));
+
+//    fields.push_back(new DecaleSquareField2D (730.,640.,decaleSize3, 8, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 8));
+
+//    fields.push_back(new DecaleSquareField2D (540.,740.,decaleSize3, 9, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 9));
+
+//    fields.push_back(new DecaleSquareField2D (430.,240.,decaleSize3, 10, 0, n));
+//    decaleImages.push_back(new ColorImage ("../Images/youtube", 10));
 
 //    fields.push_back(new DecaleDiskField2D (410.,140.,decaleSize3, n));
 //    decaleImages.push_back(new ColorImage ("../Images/round-google.png"));
@@ -244,7 +273,7 @@ int main(int argc, char** argv)
     myWidget.setDeformers(deformers);
     myWidget.setDecaleImages(decaleImages);
     myWidget.setGamut(gamut);
-    myWidget.setGamutColor(Color(0.,0.,0.));
+    myWidget.setGamutColor(Color(255.,255.,255.));
     myWidget.prepareSolver(gamut);
 
     /***********************************
@@ -252,7 +281,10 @@ int main(int argc, char** argv)
     ***********************************/
 //    myWidget.update();
 
-    myWidget.show();
+
+    myWidget.showFullScreen();
+
+
 
     return app.exec();
 }

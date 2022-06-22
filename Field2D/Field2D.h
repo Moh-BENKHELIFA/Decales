@@ -27,6 +27,8 @@ public:
     // size is the size of the primitive (see below)
     // n controls the slope of the falloff function (see below)
     Field2D (double size, unsigned int n);
+    Field2D (double sizex,double sizey, unsigned int n);
+
 
     // Field evaluation at any position (x,y) => to be defined by type of Field Function
     // example of a bounded circle of center (0,0) and radius r => size = r and the eval function is written as:
@@ -39,6 +41,9 @@ public:
 
     // Returns the size if the primitive whose boundary is defined by f=Iso
     double getSize ();
+
+    double getSizex();
+    double getSizey();
 
     void setSize(double value);
 
@@ -70,10 +75,14 @@ protected:
 
     //Size of the primitive boundary (at the Iso-isosurface)
     //Radius for a sphere
-    double size;
+//    double size;
+    double sizex;
+    double sizey;
 
     //Radius of influence (Field = 0 outside)
-    double radius;
+//    double radius;
+    double radiusx;
+    double radiusy;
 
     //inverse of iso by the Field function
     double invAtIso;

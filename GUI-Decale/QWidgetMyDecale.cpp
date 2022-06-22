@@ -61,6 +61,7 @@ int QWidgetMyDecale::getClosestDecalID(QPointF pointpos){
         refposy = decales[0]->getPosy();
         indexSelectedDecale = 0;
 
+
         double dist = (refx-refposx)*(refx-refposx)+(refy-refposy)*(refy-refposy);
         double min = dist;
         for (int i=1; i<decales.size(); i++) {
@@ -83,6 +84,8 @@ int QWidgetMyDecale::getDecalID(QPointF mousepos)
 
     refx = mousepos.x();
     refy = mousepos.y();
+
+
 
     for(size_t i = 0; i<decales.size(); i++){
         //std::cout<<"decals: "<<decales.size()<<" "<<i<<std::endl;
@@ -195,7 +198,8 @@ bool QWidgetMyDecale::event(QEvent *event){
         //Touch add and release
         for(int i = 0; i<t->pointCount(); i++){
             auto point = t->points().at(i);
-            removeDecale(getDecalID(point.position()));
+           // removeDecale(getDecalID(point.position()));
+            //TODO RESET THE REMOVE DECALE
             needUpdate = true;
         }
 
@@ -235,8 +239,8 @@ bool QWidgetMyDecale::event(QEvent *event){
                 //get declal id when touching
                 touchedDecalID = getDecalID(point.position());
 
-                std::cout<<"NEW TOUCH"<<std::endl;
-                std::cout<<"idx: "<<touchedDecalID<<" "<< point.id()<<std::endl;
+//                std::cout<<"NEW TOUCH"<<std::endl;
+//                std::cout<<"idx: "<<touchedDecalID<<" "<< point.id()<<std::endl;
                 //if touches on decal -> save the id
                 if(touchedDecalID >= 0){
                     //key: decal id, value: decal position
@@ -247,12 +251,12 @@ bool QWidgetMyDecale::event(QEvent *event){
                 }
                 istouchbegin = false;
                 prevPointCount+=1;
-                std::cout<<"size: "<<t->pointCount()<<std::endl; //Number of touch inputs
+             //   std::cout<<"size: "<<t->pointCount()<<std::endl; //Number of touch inputs
             }
             //On Touch Release
             if(t->pointCount() < prevPointCount){
-                std::cout<<"touch removed"<<std::endl;
-                std::cout<<"size: "<<t->pointCount()<<std::endl;
+//                std::cout<<"touch removed"<<std::endl;
+//                std::cout<<"size: "<<t->pointCount()<<std::endl;
                 prevPointCount = t->pointCount();
 
                 //update decals touchmap
@@ -273,7 +277,7 @@ bool QWidgetMyDecale::event(QEvent *event){
         }
 
 
-        std::cout<<"dtouches: "<<decalsref.size()<<std::endl;
+//        std::cout<<"dtouches: "<<decalsref.size()<<std::endl;
         //interaction with touched points when decals are touches
         for(auto i = decalsref.begin(); i != decalsref.end(); i++){
             auto p = t->pointById(i.key());
@@ -329,7 +333,7 @@ bool QWidgetMyDecale::event(QEvent *event){
                     //previous scale is needed after touch release to start with last scaled decal
                     scalefactor = prevscalefactor[decalIDToScale] * dist/distInit;
 
-                    std::cout<<"dist: "<<distInit<<" "<<dist<<" "<<scalefactor<<" "<<currentScale<<std::endl;
+//                    std::cout<<"dist: "<<distInit<<" "<<dist<<" "<<scalefactor<<" "<<currentScale<<std::endl;
 
 
                     if(scalefactor>0.0 and scalefactor<2.0 and scalefactor!=1){
@@ -341,18 +345,19 @@ bool QWidgetMyDecale::event(QEvent *event){
                         decales[decalIDToScale]->updateBuffersSize();
                         decales[decalIDToScale]->updateDiscreteField(0);
 
-                        std::cout<<"decal size: "<<decales[decalIDToScale]->getSize()<<std::endl;
+//                        std::cout<<"decal size: "<<decales[decalIDToScale]->getSize()<<std::endl;
                     }
                     std::cout<<"current scale: "<<currentScale<<std::endl;
                 }else{ // if there is not two touches move the object
-                    std::cout<<"position"<<std::endl;
+//                    std::cout<<"position"<<std::endl;
                     decales[decalID]->setPosx(refvalx + p->position().x() - p->pressPosition().x());
                     decales[decalID]->setPosy(refvaly + p->position().y() - p->pressPosition().y());
+                    needUpdate = true;
+
                 }
 
              foundTwoTouches = false;
             }
-
         }
         needUpdate = true;
         return true;
@@ -407,15 +412,15 @@ void QWidgetMyDecale::mousePressEvent(QMouseEvent *event) {
 void QWidgetMyDecale::mouseMoveEvent(QMouseEvent *event) {
 
     //if decal selected
-    if(indexSelectedDecale>=0){
-        std::cout<<"move id: "<<indexSelectedDecale<<std::endl;
+//    if(indexSelectedDecale>=0){
+//        std::cout<<"move id: "<<indexSelectedDecale<<std::endl;
 
-        innerRemoveColorDecale();
-        decales[indexSelectedDecale]->setPosx(refposx+event->pos().x()-refx);
-        decales[indexSelectedDecale]->setPosy(refposy+event->pos().y()-refy);
+//        innerRemoveColorDecale();
+//        decales[indexSelectedDecale]->setPosx(refposx+event->pos().x()-refx);
+//        decales[indexSelectedDecale]->setPosy(refposy+event->pos().y()-refy);
 
-        needUpdate = true;
-    }
+//        needUpdate = true;
+//    }
 }
 
 void QWidgetMyDecale::mouseDoubleClickEvent(QMouseEvent *event){ //Zoom on the decale 0
@@ -481,6 +486,11 @@ void QWidgetMyDecale::prepareSolver(GamutField2D *gamut)
     std::cout<<"---4 - Calling solver solve"<<std::endl;
     mysolver.solve();
 
+
+    for(DecaleScalarField2D *d : decales){
+        std::cout<<"id: "<<d->getId()<<" || Pos: "<<d->getPosx()<<std::endl;
+
+    }
 }
 void QWidgetMyDecale::internal_preupdate_solve()
 {
@@ -651,5 +661,8 @@ ColorImage *QWidgetMyDecale::getDecaleImage(int decaleId){
     }
     return NULL;
 }
+
+
+
 
 

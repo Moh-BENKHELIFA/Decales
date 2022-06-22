@@ -16,6 +16,7 @@ public:
     ColorImage ();
 
     ColorImage (const QString &fileName, unsigned int decaleId);
+    ColorImage (const int w, const int h, unsigned int decaleId);
     ColorImage (const int w, const int h);
 
     Color getColor (const unsigned int i, const unsigned int j);

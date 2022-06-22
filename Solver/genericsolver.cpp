@@ -61,8 +61,8 @@ void GenericSolver::init()
    //starting over the state of the cps
    std::vector<pse_ppoint_params_t> ppp(nPoints, PSE_PPOINT_PARAMS_NULL);//TODO are they empty? or is it charging the decals?
    std::vector<pse_ppoint_id_t> ppids(nPoints, PSE_PPOINT_ID_INVALID_);
-   std::cout<<"ppids 0: "<<ppids[0]<<std::endl;
-   std::cout<<"ppp 0: "<<ppp.data()<<std::endl;
+//   std::cout<<"ppids 0: "<<ppids[0]<<std::endl;
+//   std::cout<<"ppp 0: "<<ppp.data()<<std::endl;
 
 
    std::vector< std::array<pse_ppoint_id_t, 2> > pppairs(nRelshsps);
@@ -72,27 +72,27 @@ void GenericSolver::init()
    //It's collecting the ids according to the position of the decals in the vector?
    //would it be possible to get a unique id that is store in the decale as an attribute or do we need to do it with an other function?
    PSE_CALL(pseConstrainedParameterSpaceParametricPointsAdd(cps,nPoints,ppp.data(),ppids.data()));
-   std::cout<<"ppids 0: "<<ppids[0]<<std::endl<<"---------------------"<<std::endl;
-   for(size_t i = 0; i <nPoints-1; i++){
-       std::cout<<"ppids i: "<<ppids[i]<<std::endl;
+//   std::cout<<"ppids 0: "<<ppids[0]<<std::endl<<"---------------------"<<std::endl;
+//   for(size_t i = 0; i <nPoints-1; i++){
+//       std::cout<<"ppids i: "<<ppids[i]<<std::endl;
 
-       for(size_t j = i+1; j <nPoints; j++){
-           std::cout<<"ppids j: "<<ppids[j]<<std::endl;
-       }
-   }
+//       for(size_t j = i+1; j <nPoints; j++){
+//           std::cout<<"ppids j: "<<ppids[j]<<std::endl;
+//       }
+//   }
 
 
    //mapping
    //TODO What does the mapping do?
    internal_preupdate_mapping(ppids);
    std::cout<<"--------------------------------------------"<<ppids[0]<<std::endl;
-   for(size_t i = 0; i <nPoints-1; i++){
-       std::cout<<"ppids i: "<<ppids[i]<<std::endl;
+//   for(size_t i = 0; i <nPoints-1; i++){
+//       std::cout<<"ppids i: "<<ppids[i]<<std::endl;
 
-       for(size_t j = i+1; j <nPoints; j++){
-           std::cout<<"ppids j: "<<ppids[j]<<std::endl;
-       }
-   }
+//       for(size_t j = i+1; j <nPoints; j++){
+//           std::cout<<"ppids j: "<<ppids[j]<<std::endl;
+//       }
+//   }
 
    //1 to 1 relation
    //c - to change number of pairs 0 and 1

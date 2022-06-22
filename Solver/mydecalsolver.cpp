@@ -40,6 +40,35 @@ void MyDecalSolver::internal_preupdate_assignconstraints()
     fp.back().costs_count = 1;
     fp.back().expected_pspace = r2_uid;
 
+    //vertical line alignement constr
+    vertical_line_alignment_constr_ID = fp.size();
+    fp.push_back( PSE_RELSHP_COST_FUNC_PARAMS_NULL);
+    fids.push_back(PSE_RELSHP_COST_FUNC_ID_INVALID_);
+    fp.back().compute = Constraints::vertical_line_alignment_constraint;
+    fp.back().cost_arity_mode = PSE_COST_ARITY_MODE_PER_POINT;
+    fp.back().costs_count = 1;
+    fp.back().expected_pspace = r2_uid;
+
+    //horizontal line alignement constr
+    horizontal_line_alignment_constr_ID = fp.size();
+    fp.push_back( PSE_RELSHP_COST_FUNC_PARAMS_NULL);
+    fids.push_back(PSE_RELSHP_COST_FUNC_ID_INVALID_);
+    fp.back().compute = Constraints::horizontal_line_alignment_constraint;
+    fp.back().cost_arity_mode = PSE_COST_ARITY_MODE_PER_POINT;
+    fp.back().costs_count = 1;
+    fp.back().expected_pspace = r2_uid;
+
+    //fixed position constr
+    fixed_position_constr_ID = fp.size();
+    fp.push_back( PSE_RELSHP_COST_FUNC_PARAMS_NULL);
+    fids.push_back(PSE_RELSHP_COST_FUNC_ID_INVALID_);
+    fp.back().compute = Constraints::fixed_position_constraint;
+    fp.back().cost_arity_mode = PSE_COST_ARITY_MODE_PER_POINT;
+    fp.back().costs_count = 1;
+    fp.back().expected_pspace = r2_uid;
+
+
+
     //max dist constr
     max_dist_cosntr_ID = fp.size();
     fp.push_back( PSE_RELSHP_COST_FUNC_PARAMS_NULL);//TODO what is it pushing back ?
@@ -49,14 +78,25 @@ void MyDecalSolver::internal_preupdate_assignconstraints()
     fp.back().costs_count = 1;//??
     fp.back().expected_pspace = r2_uid;//???
 
-    //alignment constr
-    alignment_constr_ID = fp.size(); //set id number to add more constraints to the solver
-    fp.push_back(PSE_RELSHP_COST_FUNC_PARAMS_NULL);
-    fids.push_back(PSE_RELSHP_COST_FUNC_ID_INVALID_);
-    fp.back().compute = Constraints::alignment_constraint;
-    fp.back().cost_arity_mode = PSE_COST_ARITY_MODE_PER_RELATIONSHIP;
-    fp.back().costs_count = 1;
-    fp.back().expected_pspace = r2_uid;
+//    //alignment constr
+//    vertical_alignment_constr_ID = fp.size(); //set id number to add more constraints to the solver
+//    fp.push_back(PSE_RELSHP_COST_FUNC_PARAMS_NULL);
+//    fids.push_back(PSE_RELSHP_COST_FUNC_ID_INVALID_);
+//    fp.back().compute = Constraints::vertical_alignment_constraint;
+//    fp.back().cost_arity_mode = PSE_COST_ARITY_MODE_PER_RELATIONSHIP;//???
+//    fp.back().costs_count = 1;
+//    fp.back().expected_pspace = r2_uid;
+
+//    //horizontal alignment constr
+//    horizontal_alignment_constr_ID = fp.size();
+//    fp.push_back(PSE_RELSHP_COST_FUNC_PARAMS_NULL);
+//    fids.push_back(PSE_RELSHP_COST_FUNC_ID_INVALID_);
+//    fp.back().compute = Constraints::horizontal_alignment_constraint;
+//    fp.back().cost_arity_mode = PSE_COST_ARITY_MODE_PER_RELATIONSHIP;//???
+//    fp.back().costs_count = 1;
+//    fp.back().expected_pspace = r2_uid;
+
+
 }
 
 void MyDecalSolver::internal_preupdate_constraintrelationships(size_t nRelshsps, std::vector< std::array<pse_ppoint_id_t, 2> > pppairs)
@@ -73,6 +113,7 @@ void MyDecalSolver::internal_preupdate_constraintrelationships(size_t nRelshsps,
     grp.cnstrs.ctxts_config = gamut_config; // gives access to the current state
     PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps,gamut_cosntr_ID,1,&grp,&grid));
 
+
     //min dist constr
     std::vector<pse_cpspace_relshp_params_t> rp(nRelshsps, PSE_CPSPACE_RELSHP_PARAMS_NULL_);
     std::vector<pse_relshp_id_t> rids(nRelshsps, PSE_RELSHP_ID_INVALID_) ;
@@ -86,17 +127,46 @@ void MyDecalSolver::internal_preupdate_constraintrelationships(size_t nRelshsps,
     }
     PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps, min_dist_cosntr_ID,nRelshsps,rp.data(),rids.data()));
 
+
+    //vertical line alignment constr
+    pse_cpspace_relshp_params_t grp2 = PSE_CPSPACE_RELSHP_PARAMS_NULL_;
+    pse_relshp_id_t grid2 = PSE_RELSHP_ID_INVALID;
+    grp2.ppoints_count = 0;
+    grp2.ppoints_id = nullptr;
+    grp2.kind = PSE_RELSHP_KIND_EXCLUSIVE;
+    grp2.cnstrs.funcs_count = 1;
+    grp2.cnstrs.funcs = &fids[vertical_line_alignment_constr_ID];
+    grp2.cnstrs.ctxts_config = gamut_config; // gives access to the current state
+    PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps, vertical_line_alignment_constr_ID,1,&grp2,&grid2));
+
+    //horizontal alignment constr
+    pse_cpspace_relshp_params_t grp3 = PSE_CPSPACE_RELSHP_PARAMS_NULL_;
+    pse_relshp_id_t grid3 = PSE_RELSHP_ID_INVALID;
+    grp3.ppoints_count = 0;
+    grp3.ppoints_id = nullptr;
+    grp3.kind = PSE_RELSHP_KIND_EXCLUSIVE;
+    grp3.cnstrs.funcs_count = 1;
+    grp3.cnstrs.funcs = &fids[horizontal_line_alignment_constr_ID];
+    grp3.cnstrs.ctxts_config = gamut_config; // gives access to the current state
+    PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps, horizontal_line_alignment_constr_ID,1,&grp3,&grid3));
+
+    //fixed position constr
+    pse_cpspace_relshp_params_t grp4 = PSE_CPSPACE_RELSHP_PARAMS_NULL_;
+    pse_relshp_id_t grid4 = PSE_RELSHP_ID_INVALID;
+    grp4.ppoints_count = 0;
+    grp4.ppoints_id = nullptr;
+    grp4.kind = PSE_RELSHP_KIND_EXCLUSIVE;
+    grp4.cnstrs.funcs_count = 1;
+    grp4.cnstrs.funcs = &fids[fixed_position_constr_ID];
+    grp4.cnstrs.ctxts_config = gamut_config; // gives access to the current state
+    PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps, fixed_position_constr_ID,1,&grp4,&grid4));
+
     //max dist constr
     std::vector<pse_cpspace_relshp_params_t> rp1(nRelshsps, PSE_CPSPACE_RELSHP_PARAMS_NULL_) ;
     std::vector<pse_relshp_id_t> r1ids(nRelshsps, PSE_RELSHP_ID_INVALID_) ;
-    //std::cout<<"n Relationship"<<nRelshsps<<std::endl;
     for(size_t i = 0; i < nRelshsps; i++) {
       rp1[i].ppoints_count = 2;
       rp1[i].ppoints_id = pppairs[i].data();
-      ///std::cout<<"i: "<<i<<std::endl<<"pp pairs data"<<pppairs[i].data()<<std::endl;
-      //std::cout<<"i: "<<i<<std::endl<<"pp pairs data"<<pppairs[i].data()<<std::endl;
-
-
       rp1[i].kind = PSE_RELSHP_KIND_INCLUSIVE;
       rp1[i].cnstrs.funcs_count = 1;
       rp1[i].cnstrs.ctxts_config = gamut_config;// name is the same, but it is the state
@@ -104,24 +174,36 @@ void MyDecalSolver::internal_preupdate_constraintrelationships(size_t nRelshsps,
     }
     PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps,max_dist_cosntr_ID,nRelshsps,rp1.data(),r1ids.data()));
 
-    //alignment constr
-    std::vector<pse_cpspace_relshp_params_t> rp2(nRelshsps, PSE_CPSPACE_RELSHP_PARAMS_NULL_);
-    std::vector<pse_relshp_id_t> r2ids(nRelshsps, PSE_RELSHP_ID_INVALID_) ;
-    for(size_t i = 0; i < nRelshsps; i++) {
-      rp2[i].ppoints_count = 2;
-      rp2[i].ppoints_id = pppairs[i].data();
-      rp2[i].kind = PSE_RELSHP_KIND_INCLUSIVE;
-      rp2[i].cnstrs.funcs_count = 1;
-      rp2[i].cnstrs.ctxts_config = gamut_config;// name is the same, but it is the state
-      rp2[i].cnstrs.funcs = &fids[alignment_constr_ID];
-    }
-    PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps, alignment_constr_ID,nRelshsps,rp.data(),rids.data()));
+    //vertical gamut alignment constr
+//    std::vector<pse_cpspace_relshp_params_t> rp2(nRelshsps, PSE_CPSPACE_RELSHP_PARAMS_NULL_);
+//    std::vector<pse_relshp_id_t> r2ids(nRelshsps, PSE_RELSHP_ID_INVALID_) ;
+//    for(size_t i = 0; i < nRelshsps; i++) {
+//      rp2[i].ppoints_count = 2;
+//      rp2[i].ppoints_id = pppairs[i].data();
+//      rp2[i].kind = PSE_RELSHP_KIND_INCLUSIVE;
+//      rp2[i].cnstrs.funcs_count = 1;
+//      rp2[i].cnstrs.ctxts_config = gamut_config;// name is the same, but it is the state
+//      rp2[i].cnstrs.funcs = &fids[vertical_alignment_constr_ID];
+//    }
+//    PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps, vertical_alignment_constr_ID,nRelshsps,rp2.data(),r2ids.data()));
+
+//    //horizontal gamut alignment constr
+//    std::vector<pse_cpspace_relshp_params_t> rp3(nRelshsps, PSE_CPSPACE_RELSHP_PARAMS_NULL_);
+//    std::vector<pse_relshp_id_t> r3ids(nRelshsps, PSE_RELSHP_ID_INVALID_) ;
+//    for(size_t i = 0; i < nRelshsps; i++) {
+//      rp3[i].ppoints_count = 2;
+//      rp3[i].ppoints_id = pppairs[i].data();
+//      rp3[i].kind = PSE_RELSHP_KIND_INCLUSIVE;
+//      rp3[i].cnstrs.funcs_count = 1;
+//      rp3[i].cnstrs.ctxts_config = gamut_config;// name is the same, but it is the state
+//      rp3[i].cnstrs.funcs = &fids[horizontal_alignment_constr_ID];
+//    }
+//    PSE_CALL(pseConstrainedParameterSpaceRelationshipsAdd(cps, horizontal_alignment_constr_ID,nRelshsps,rp3.data(),r3ids.data()));
 
 }
 
 
 void MyDecalSolver::internal_preupdate_assignnpoints(){
-    std::cout<<"internal_preupdate points"<<std::endl;
     nPoints = decales.size();
 }
 
