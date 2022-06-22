@@ -6,6 +6,7 @@
 #include "Tools/ColorImage.h"
 #include "Decale/DecaleDiskField2D.h"
 #include "Decale/DecaleSquareField2D.h"
+#include "Decale/DecaleRectangleField2D.h"
 #include "Decale/DecaleRoundCornerSquareField2D.h"
 #include "Deformer2D/Deformer2D.h"
 #include "Deformer2D/Deformer2DMax.h"
@@ -26,8 +27,8 @@
 #include "Field2D/imagefield.h"
 
 
-unsigned int wi_width=1024;
-unsigned int wi_height=740;
+unsigned int wi_width=1920;
+unsigned int wi_height=1080;
 
 VectorOfDecaleFields fields;
 VectorOfColorImages decaleImages;
@@ -93,7 +94,7 @@ void buildFields (){
     //Field2D *gamutSDF = new Operator2DMax(gamutComponentFields);
 
     //QString path = "C:/Users/aniyazov/Pictures/interactive_decal_interface/mainWindow_binaryImage";
-    QString path = "C:/Users/mbenkhel/Documents/Internship/dev/Qt/implicit-decales-aziz/Images/gamut_images/test4";
+    QString path = "C:/Users/mbenkhel/Documents/Internship/dev/Qt/implicit-decales-aziz/Images/gamut_images/full_screen";
     std::cout<< "Hello"<<std::endl;
 
     Field2D *gamutSDF = new ImageField(path);
@@ -132,7 +133,8 @@ void buildFields (){
     // Create each Decale with its eventual rotation and its image
     // Store them in a vector of Decale fields and a vector of corresponding (by index) of Decale images
     ***********************************/
-    fields.push_back(new DecaleSquareField2D(700., 270., decaleSize0, 0, 0, n));
+//    fields.push_back(new DecaleSquareField2D(700., 270., decaleSize0, 0, 0, n));
+    fields.push_back(new DecaleRectangleField2D(700., 270., decaleSize0, 0, 0, n));
     decaleImages.push_back(new ColorImage ("../Images/windows.jpg", 0));
     //fields[0]->rotate(M_PI/8.);
     //fields[0]->scale(1, decaleImages[0]->getRatioHW()*1);
@@ -270,7 +272,7 @@ int main(int argc, char** argv)
     ***********************************/
 //    myWidget.update();
 
-    myWidget.show();
+    myWidget.showFullScreen();
 
 
 
