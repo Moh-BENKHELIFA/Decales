@@ -44,6 +44,11 @@ public:
     virtual void scale (const double scalex, const double scaley);
 
     /**
+     * Update the size of the decale according to new dwidth and dheight values
+     */
+    void sizeUpdate ();
+
+    /**
      * Create and compute a field function in a buffer and add this buffer to the vector of field buffers
      */
     void computeDiscreteField ();

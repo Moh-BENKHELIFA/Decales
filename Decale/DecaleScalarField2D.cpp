@@ -27,6 +27,12 @@ DecaleScalarField2D::DecaleScalarField2D(double posx, double posy, double size,u
     dwidth=2.*radius;
     dheight=2.*radius;
 
+//    if(id==0){
+
+//        dwidth=2.*(200 / invAtIso);
+//        dheight=2.*(100/ invAtIso);
+//    }
+
     noRotateDWidthWithScale=dwidth;
     noRotateDHeightWithScale=dheight;
 
@@ -276,8 +282,8 @@ void DecaleScalarField2D::rotate(const double theta) {
 
 void DecaleScalarField2D::scale(const double scalex, const double scaley) {
 
-    std::cout<<"Dwidth: "<< dwidth <<std::endl;
-    std::cout<<"sizeX: "<< sizeX <<std::endl;
+//    std::cout<<"Dwidth: "<< dwidth <<std::endl;
+//    std::cout<<"sizeX: "<< sizeX <<std::endl;
 //    std::cout<<"has rotated: "<< hasRotated <<std::endl;
 //    std::cout<<"Dwidth: "<< dwidth <<std::endl;
 //    std::cout<<"Dheight: "<< dheight <<std::endl;
@@ -325,8 +331,8 @@ void DecaleScalarField2D::scale(const double scalex, const double scaley) {
     ***********************************/
     needUpdateBuffersSize = true;
 
-    std::cout<<"Dwidth: "<< dwidth <<std::endl;
-    std::cout<<"sizeX: "<< sizeX <<std::endl;
+//    std::cout<<"Dwidth: "<< dwidth <<std::endl;
+//    std::cout<<"sizeX: "<< sizeX <<std::endl;
 
 //    std::cout<<"Dheight: "<< dheight <<std::endl;
 //    std::cout<<"Iwidth: "<< iwidth <<std::endl;
@@ -334,7 +340,18 @@ void DecaleScalarField2D::scale(const double scalex, const double scaley) {
 //    std::cout<<"noRotateDWidthWithScale: "<< noRotateDWidthWithScale <<std::endl;
 //    std::cout<<"noRotateDHeightWithScale: "<< noRotateDHeightWithScale <<std::endl;
 //    std::cout<<"------------------"<<std::endl;
+
+    sizeUpdate();
 }
+
+void DecaleScalarField2D::sizeUpdate (){
+
+    sizeX = dwidth/2 * invAtIso;
+    sizeY = dheight/2 * invAtIso;
+
+}
+
+
 void DecaleScalarField2D::updateBuffersSize() {
 
     for (int i=0; i<discreteFields.size();i++){
