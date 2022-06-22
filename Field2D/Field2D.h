@@ -39,9 +39,12 @@ public:
 
     // Returns the size if the primitive whose boundary is defined by f=Iso
     double getSize ();
+    double getSizeX ();
+    double getSizeY ();
 
     void setSize(double value);
-
+    void setSizeX(double value);
+    void setSizeY(double value);
     // returns the power of the falloff function
     double getN ();
 
@@ -71,6 +74,8 @@ protected:
     //Size of the primitive boundary (at the Iso-isosurface)
     //Radius for a sphere
     double size;
+    double sizeX;
+    double sizeY;
 
     //Radius of influence (Field = 0 outside)
     double radius;

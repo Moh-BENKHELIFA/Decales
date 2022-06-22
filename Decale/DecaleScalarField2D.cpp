@@ -276,11 +276,27 @@ void DecaleScalarField2D::rotate(const double theta) {
 
 void DecaleScalarField2D::scale(const double scalex, const double scaley) {
 
+    std::cout<<"Dwidth: "<< dwidth <<std::endl;
+    std::cout<<"sizeX: "<< sizeX <<std::endl;
+//    std::cout<<"has rotated: "<< hasRotated <<std::endl;
+//    std::cout<<"Dwidth: "<< dwidth <<std::endl;
+//    std::cout<<"Dheight: "<< dheight <<std::endl;
+//    std::cout<<"Iwidth: "<< iwidth <<std::endl;
+//    std::cout<<"Iheight: "<< iheight <<std::endl;
+//    std::cout<<"noRotateDWidthWithScale: "<< noRotateDWidthWithScale <<std::endl;
+//    std::cout<<"noRotateDHeightWithScale: "<< noRotateDHeightWithScale <<std::endl;
+//    std::cout<<"------------------"<<std::endl;
+
+
     /***********************************
     // Scale accumulation. Provides the scales from the rest pose.
     ***********************************/
     this->scalex = this->scalex * scalex;
     this->scaley = this->scaley * scaley;
+
+//    std::cout<<"scaleX: "<< scalex <<std::endl;
+//    std::cout<<"scaleY: "<< scaley <<std::endl;
+//    std::cout<<"------------------"<<std::endl;
 
     /***********************************
     // Accumulation of the width and height from scales.
@@ -294,7 +310,7 @@ void DecaleScalarField2D::scale(const double scalex, const double scaley) {
     ***********************************/
     if (hasRotated) dwidth = dheight = std::max(noRotateDWidthWithScale, noRotateDHeightWithScale);
     else {
-        dwidth = noRotateDHeightWithScale;
+        dwidth = noRotateDWidthWithScale;
         dheight = noRotateDHeightWithScale;
     }
 
@@ -308,6 +324,16 @@ void DecaleScalarField2D::scale(const double scalex, const double scaley) {
     // The field and UV buffer size need to be updates and buffers need to be re-computed
     ***********************************/
     needUpdateBuffersSize = true;
+
+    std::cout<<"Dwidth: "<< dwidth <<std::endl;
+    std::cout<<"sizeX: "<< sizeX <<std::endl;
+
+//    std::cout<<"Dheight: "<< dheight <<std::endl;
+//    std::cout<<"Iwidth: "<< iwidth <<std::endl;
+//    std::cout<<"Iheight: "<< iheight <<std::endl;
+//    std::cout<<"noRotateDWidthWithScale: "<< noRotateDWidthWithScale <<std::endl;
+//    std::cout<<"noRotateDHeightWithScale: "<< noRotateDHeightWithScale <<std::endl;
+//    std::cout<<"------------------"<<std::endl;
 }
 void DecaleScalarField2D::updateBuffersSize() {
 

@@ -5,14 +5,14 @@
 #include "Field2D.h"
 #include <math.h>
 
-Field2D::Field2D (): size (1.), n(2), iso(0.5) {
+Field2D::Field2D (): size (1.), sizeX(1.),sizeY(1.), n(2), iso(0.5) {
 
     invAtIso = invFallOff(iso);
     radius = size / invAtIso;
 }
 
 Field2D::Field2D (double size, unsigned int n)
-        : size(size), n(n), iso(0.5) {
+        : size(size), sizeX(size), sizeY(size), n(n), iso(0.5) {
 
     invAtIso = invFallOff(iso);
     radius = size / invAtIso;
@@ -41,9 +41,27 @@ void Field2D::setSize(double value)
     size = value;
 }
 
-double Field2D::getSize (){
+void Field2D::setSizeX(double value)
+{
+    sizeX = value;
+}
 
+void Field2D::setSizeY(double value)
+{
+    sizeY = value;
+}
+
+double Field2D::getSize(){
     return size;
+}
+
+double Field2D::getSizeX(){
+    return sizeX;
+}
+
+double Field2D::getSizeY(){
+
+    return sizeY;
 }
 
 double Field2D::getN () {

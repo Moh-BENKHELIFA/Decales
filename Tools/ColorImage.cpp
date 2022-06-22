@@ -3,6 +3,7 @@
 //
 
 #include "ColorImage.h"
+#include "QLabel"
 #include <iostream>
 
 
@@ -26,6 +27,34 @@ ColorImage::ColorImage (const int w, const int h){
     setBlack();
 
     this->decaleId = decaleId;
+}
+
+ColorImage::ColorImage (const int w, const int h, unsigned int decaleId){
+    piximg = QPixmap(w, h);
+    width = w;
+    height = h;
+
+    this->decaleId = decaleId;
+
+    QLabel *label = new QLabel();
+    label->setGeometry(0,0,w,h);
+//    label->setSizePolicy(QSizePolicy(10));
+    label-> setWordWrap(true);
+//    label->setText("Hello world!");
+    label->setAlignment(Qt::AlignLeft );
+    label->setStyleSheet("background: white; border:3px solid black");
+    label->setMargin(5);
+
+    QFont *font = new QFont("SansSerif", 8);//Size 8 = best smallest resolution
+    font->setHintingPreference(QFont::PreferFullHinting);
+    font->setStyleStrategy(QFont::PreferAntialias);
+    label->setFont(*font);
+    QString text = "Abstract\n"
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque porttitor augue aliquam libero consequat consequat. Nullam luctus tincidunt eros eleifend efficitur. Fusce ultrices laoreet eleifend. Quisque non pharetra orci, et consectetur massa. Praesent iaculis pellentesque iaculis. Nunc ipsum ante, vulputate at mauris eget, commodo aliquet nisi. In bibendum vulputate libero nec interdum. Donec augue orci, pellentesque gravida enim vitae, dapibus eleifend arcu. Vestibulum augue lacus, tincidunt ut dignissim in, malesuada a tortor. Integer vitae nibh sit amet dolor rutrum semper sed ut nulla. Aliquam eu imperdiet turpis. Aenean non lorem ullamcorper, sollicitudin lectus in, vehicula mauris. Donec euismod interdum scelerisque. In sit amet eros scelerisque, accumsan turpis ut, vehicula ipsum. ";
+    label->setText(text);
+    piximg = label->pixmap();
+    qimg = label->grab(*new QRect(QPoint(0,0), QSize(w,h))).toImage();
+
 }
 
 Color ColorImage::getColor (const unsigned int i, const unsigned int j){

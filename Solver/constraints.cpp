@@ -211,7 +211,7 @@ pse_res_t Constraints::min_dist_constratint(const pse_eval_ctxt_t *eval_ctxt,
         const pse_real_t x2 = eval_coords->coords[ppidx2*2+0];
         const pse_real_t y2 = eval_coords->coords[ppidx2*2+1];
 
-        double dist = std::max(std::abs(x2-x1), std::abs(y2-y1));
+//        double dist = std::max(std::abs(x2-x1), std::abs(y2-y1));
 
         std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it1;
         std::map<pse_ppoint_id_t, DecaleScalarField2D*>::iterator it2;
@@ -221,11 +221,28 @@ pse_res_t Constraints::min_dist_constratint(const pse_eval_ctxt_t *eval_ctxt,
         int id1 = it1->first;
         int id2 = it2->first;
 
-        double r1 = MyDecalSolver::mydecalsmap.at(it1->first)->getSize();
-        double r2 = MyDecalSolver::mydecalsmap.at(it2->first)->getSize();
+//        double r1 = MyDecalSolver::mydecalsmap.at(it1->first)->getSize();
+//        double r2 = MyDecalSolver::mydecalsmap.at(it2->first)->getSize();
 
 
-        double distance =  dist-r1-r2;
+//        double distance =  dist-r1-r2;
+//        if(distance <= 1 && distance >=0)
+//                distance = -1;
+//        costs[i] = costFactor * std::min(00.0, distance);
+
+        double rx1 = MyDecalSolver::mydecalsmap.at(it1->first)->getSizeX();
+        double rx2 = MyDecalSolver::mydecalsmap.at(it2->first)->getSizeX();
+        double ry1 = MyDecalSolver::mydecalsmap.at(it1->first)->getSizeY();
+        double ry2 = MyDecalSolver::mydecalsmap.at(it2->first)->getSizeY();
+
+
+//        double distance =  dist-r1-r2;
+
+        double distancex = abs(x2-x1)-rx1-rx2;
+      double distancey = abs(y2-y1)-ry1-ry2;
+
+      double distance = std::max(distancex, distancey);
+
         if(distance <= 1 && distance >=0)
                 distance = -1;
         costs[i] = costFactor * std::min(00.0, distance);

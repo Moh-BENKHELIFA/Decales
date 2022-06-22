@@ -135,7 +135,9 @@ void buildFields (){
     ***********************************/
 //    fields.push_back(new DecaleSquareField2D(700., 270., decaleSize0, 0, 0, n));
     fields.push_back(new DecaleRectangleField2D(700., 270., decaleSize0, 0, 0, n));
-    decaleImages.push_back(new ColorImage ("../Images/windows.jpg", 0));
+//    decaleImages.push_back(new ColorImage ("../Images/windows.jpg", 0));
+    decaleImages.push_back(new ColorImage (200,100, 0));
+
     //fields[0]->rotate(M_PI/8.);
     //fields[0]->scale(1, decaleImages[0]->getRatioHW()*1);
 
@@ -264,7 +266,7 @@ int main(int argc, char** argv)
     myWidget.setDeformers(deformers);
     myWidget.setDecaleImages(decaleImages);
     myWidget.setGamut(gamut);
-    myWidget.setGamutColor(Color(0.,0.,0.));
+    myWidget.setGamutColor(Color(235, 228, 218));
     myWidget.prepareSolver(gamut);
 
     /***********************************
@@ -272,7 +274,7 @@ int main(int argc, char** argv)
     ***********************************/
 //    myWidget.update();
 
-    myWidget.showFullScreen();
+    myWidget.show();
 
 
 
